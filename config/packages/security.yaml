@@ -14,6 +14,7 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
+      access_denied_handler: App\Security\AccessDeniedHandler
       lazy: true
       provider: app_user_provider
       custom_authenticator: App\Security\UserAuthAuthenticator
@@ -23,7 +24,7 @@ security:
         # target: app_any_route
 
       remember_me:
-        secret: '%kernel.secret%'
+        secret: "%kernel.secret%"
         lifetime: 604800
         path: /
         # by default, the feature is enabled by checking a checkbox in the
