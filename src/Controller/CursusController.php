@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Cursus;
+use App\Entity\Lesson;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -9,10 +12,12 @@ use Symfony\Component\Routing\Attribute\Route;
 class CursusController extends AbstractController
 {
     #[Route('/cursus', name: 'app_cursus')]
-    public function index(): Response
+    public function index(EntityManagerInterface $em): Response
     {
+        $cursus = $em->getRepository(Cursus::class)->findAll();
+
         return $this->render('cursus/index.html.twig', [
-            'controller_name' => 'CursusController',
+            'cursus' => $cursus,
         ]);
     }
 }

@@ -22,7 +22,6 @@ class CursusCrudController extends AbstractCrudController
       AssociationField::new('theme'),
       TextField::new('name'),
       IntegerField::new('price'),
-      TextField::new('lessonsAsString', 'Lessons'),
     ];
   }
 }
