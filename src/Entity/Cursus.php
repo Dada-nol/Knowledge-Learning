@@ -106,4 +106,15 @@ class Cursus
 
         return $this;
     }
+
+    public function __toString(): string
+    {
+        return $this->getName();
+    }
+
+    public function getLessonsAsString(): string
+    {
+        $lessonNames = $this->lessons->map(fn($lesson) => $lesson->getName())->toArray();
+        return implode(', ', $lessonNames);
+    }
 }
