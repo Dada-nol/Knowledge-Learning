@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Cursus;
-use App\Entity\Lesson;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
