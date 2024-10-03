@@ -11,6 +11,9 @@
 				<p>Prix:
 					{{ cursus.price }}
 					€</p>
+				<a href="{{path('app_lesson', {'id':cursus.id}) }}">
+					<button>Voir les leçons</button>
+				</a>
 			</li>
 
 		{% endfor %}

@@ -8,6 +8,9 @@
 		{% for theme in themes %}
 			<li>
 				<h2>{{ theme.name }}</h2>
+				<a href="{{path('app_cursus', {'id':theme.id}) }}">
+					<button>Voir les cursus</button>
+				</a>
 			</li>
 		{% endfor %}
 	</ul>
