@@ -28,8 +28,7 @@ class ResetPasswordController extends AbstractController
     public function __construct(
         private ResetPasswordHelperInterface $resetPasswordHelper,
         private EntityManagerInterface $entityManager
-    ) {
-    }
+    ) {}
 
     /**
      * Display & process form to request a password reset.
@@ -44,11 +43,14 @@ class ResetPasswordController extends AbstractController
             /** @var string $email */
             $email = $form->get('email')->getData();
 
-            return $this->processSendingPasswordResetEmail($email, $mailer, $translator
+            return $this->processSendingPasswordResetEmail(
+                $email,
+                $mailer,
+                $translator
             );
         }
 
-        return $this->render('reset_password/request.html.twig', [
+        return $this->render('Users/reset_password/request.html.twig', [
             'requestForm' => $form,
         ]);
     }
@@ -65,7 +67,7 @@ class ResetPasswordController extends AbstractController
             $resetToken = $this->resetPasswordHelper->generateFakeResetToken();
         }
 
-        return $this->render('reset_password/check_email.html.twig', [
+        return $this->render('Users/reset_password/check_email.html.twig', [
             'resetToken' => $resetToken,
         ]);
     }
@@ -124,7 +126,7 @@ class ResetPasswordController extends AbstractController
             return $this->redirectToRoute('app_home');
         }
 
-        return $this->render('reset_password/reset.html.twig', [
+        return $this->render('Users/reset_password/reset.html.twig', [
             'resetForm' => $form,
         ]);
     }
@@ -160,11 +162,10 @@ class ResetPasswordController extends AbstractController
             ->from(new Address('nardol.darren@gmail.com', 'Knowledge-Learning'))
             ->to((string) $user->getEmail())
             ->subject('Your password reset request')
-            ->htmlTemplate('reset_password/email.html.twig')
+            ->htmlTemplate('Users/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
-            ])
-        ;
+            ]);
 
         $mailer->send($email);
 

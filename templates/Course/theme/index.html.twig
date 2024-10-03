@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+	<ul>
+		{% for theme in themes %}
+			<li>
+				<h2>{{ theme.name }}</h2>
+			</li>
+		{% endfor %}
+	</ul>
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CursusController!
+{% endblock %}
+
+{% block body %}
+	<ul>
+		{% for lesson in cursus.lessons %}
+			<li>
+				<h2>{{ lesson.name }}</h2>
+				<p>Prix:
+					{{ lesson.price }}
+					€</p>
+			</li>
+
+		{% endfor %}
+	</ul>
+
+
+{% endblock %}

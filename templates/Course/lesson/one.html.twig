@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+	<ul>
+		{% if lesson %}
+			<li>
+				<h2>{{ lesson.name }}</h2>
+				<p>{{lesson.price}}</p>
+			</li>
+		{% else %}
+			<p>Cette leçon n'est pas disponible</p>
+		{% endif %}
+
+
+	</ul>
+
+
+{% endblock %}
