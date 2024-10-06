@@ -4,6 +4,12 @@
 {% endblock %}
 
 {% block body %}
+	{% if app.request.get('accessDenied') %}
+		<div class="alert alert-warning">
+			Vous n'avez pas les autorisations nécessaires pour accéder à cette route, veuillez vous connecter ou activer votre compte.
+		</div>
+	{% endif %}
+
 	<form method="post">
 		{% if error %}
 			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

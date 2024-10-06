@@ -42,7 +42,9 @@ security:
   access_control:
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/profile, roles: ROLE_USER }
-    - { path: ^/certification, roles: ROLE_CLIENT }
+    - { path: ^/theme/\d+/cursus, roles: ROLE_CLIENT }
+    - { path: ^/cursus/\d+/lesson, roles: ROLE_CLIENT }
+    - { path: ^/lesson/\d+$, roles: ROLE_CLIENT }
 
 when@test:
   security:
