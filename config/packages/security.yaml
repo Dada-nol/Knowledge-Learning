@@ -44,7 +44,6 @@ security:
     - { path: ^/profile, roles: ROLE_USER }
     - { path: ^/theme/\d+/cursus, roles: ROLE_CLIENT }
     - { path: ^/cursus/\d+/lesson, roles: ROLE_CLIENT }
-    - { path: ^/lesson/\d+$, roles: ROLE_CLIENT }
 
 when@test:
   security:
