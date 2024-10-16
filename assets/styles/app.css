@@ -1,1 +1,30 @@
+header {
+  border-bottom: solid 1px black;
+}
 
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  margin-right: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+}
+
+a:hover {
+  text-decoration: underline;
+}

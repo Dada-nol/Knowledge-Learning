@@ -4,6 +4,9 @@
 {% endblock %}
 
 {% block body %}
+
+{% include "header.html.twig" %}
+
 	<ul>
 		{% if lesson %}
 
@@ -17,5 +20,5 @@
 		{% endif %}
 	</ul>
 
-
+{% include "footer.html.twig" %}
 {% endblock %}

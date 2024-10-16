@@ -4,6 +4,7 @@
 {% endblock %}
 
 {% block body %}
+	{% include "header.html.twig" %}
 	<ul>
 		{% for cursus in theme.cursus %}
 			<li>
@@ -19,5 +20,6 @@
 		{% endfor %}
 	</ul>
 
+	{% include "footer.html.twig" %}
 
 {% endblock %}
