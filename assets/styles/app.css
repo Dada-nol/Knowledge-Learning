@@ -19,12 +19,18 @@ li {
   list-style: none;
 }
 
-a {
+.nav-list a {
   text-decoration: none;
   color: black;
   text-transform: uppercase;
 }
 
-a:hover {
+.nav-list a:hover {
   text-decoration: underline;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px black solid;
 }
