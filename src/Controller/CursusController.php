@@ -8,7 +8,6 @@ use App\Entity\Theme;
 use App\Form\CursusType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -26,11 +25,10 @@ class CursusController extends AbstractController
 
 
     #[Route('/theme/{id}/cursus', name: 'app_cursus')]
-    public function allCursus(EntityManagerInterface $em, int $id, Request $request): Response
+    public function allCursus(EntityManagerInterface $em, int $id): Response
     {
         $theme = $em->getRepository(Theme::class)->find($id);
-        $form = $this->createForm(CursusType::class);
-        $form->handleRequest($request);
+
 
         return $this->render('cursus/cursus.html.twig', [
             'theme' => $theme,
