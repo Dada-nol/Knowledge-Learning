@@ -12,12 +12,14 @@
 			<p class="price">Prix:
 				{{ lesson.price }}
 				€</p>
-			<div<<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
-				<button>Commencer le cours</button>
-			</a>
-			<a href="">
-				<button class="btn-danger">Acheter la leçon</button>
-			</a>
+			<div>
+				<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
+					<button>Commencer le cours</button>
+				</a>
+				<a href="">
+					<button class="btn-danger">Acheter la leçon</button>
+				</a>
+			</li>
 		</li>
 	</div>
 </li>{% endfor %}</ul>{% include "footer.html.twig" %}{% endblock %}
