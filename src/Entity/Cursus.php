@@ -21,7 +21,7 @@ class Cursus
     #[ORM\Column]
     private ?int $price = null;
 
-    #[ORM\ManyToOne]
+    #[ORM\ManyToOne(inversedBy: 'cursus')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Theme $theme = null;
 

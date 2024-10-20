@@ -4,7 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	<h1>
-		Bienvenue sur la page d'accueil !
-	</h1>
+	{% include "header.html.twig" %}
+	<main class="home">
+		<h1>
+			Bienvenue sur la page d'accueil !
+		</h1>
+
+		<section class="presentation">
+			<p>La société éditrice
+				<i>Knowledge</i>
+				est connue pour ses supports de formation vendus en librairie.</p>
+			<p>
+				<i>Knowledge</i>
+				propose des formations sous forme de livres ou de kits dans les domaines de la musique, de l'informatique ou du jardinage, par exemple.</p>
+			<p>
+				<i>Knowledge</i>
+				souhaite désormais développer sa gamme de produits en proposant en ligne ses formations sur un site e-learning.</p>
+
+			<p>
+				<b>C'est le projet « Knowledge Learning ».</b>
+			</p>
+
+		</section>
+
+
+		<h2>Les cours proposés</h2>
+
+		<a href="{{path('app_theme')}}">
+			<button>Voir</button>
+		</a>
+	</main>
+	{% include "footer.html.twig" %}
 {% endblock %}

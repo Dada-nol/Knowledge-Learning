@@ -1,1 +1,153 @@
+header {
+  border-bottom: solid 1px #384050;
+}
 
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  margin-right: 20px;
+}
+
+li {
+  list-style: none;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: #00497c;
+  text-transform: uppercase;
+}
+
+.nav-item:hover {
+  color: #82b864;
+  text-decoration: underline;
+}
+
+.nav-logout {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #cd2c2e;
+}
+
+.nav-logout:hover {
+  text-decoration: underline;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px #384050 solid;
+}
+
+h1 {
+  margin: 50px 0 30px 0;
+}
+
+b {
+  color: #82b864;
+  text-transform: uppercase;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.home button {
+  width: 80px;
+  height: 40px;
+  color: #f1f8fc;
+  background-color: #82b864;
+  border: #f1f8fc solid 2px;
+  border-radius: 50%;
+}
+
+button {
+  width: 100px;
+  height: 40px;
+  color: #f1f8fc;
+  background-color: #82b864;
+  border: #00497c solid 2px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+button:hover {
+  background-color: #00497c;
+}
+
+.btn-danger:hover {
+  background-color: #cd2c2e;
+}
+
+.card {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  border: #00497c solid 2px;
+  border-radius: 20px;
+}
+
+.card img {
+  border: #384050 solid 1px;
+  border-radius: 25px;
+  margin-top: 20px;
+  width: 250px;
+  height: 200px;
+  max-width: 100%;
+}
+
+.card h2 {
+  margin: 0;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #00497c;
+}
+
+.price {
+  color: #cd2c2e;
+}
+
+.main-theme {
+  margin: 50px 0 50px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.cursus-list {
+  margin: 50px 0 50px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.lesson-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  margin: 20px;
+  border-bottom: #00497c dotted 2px;
+}

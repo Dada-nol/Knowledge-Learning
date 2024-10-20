@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CursusController!
+{% endblock %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+	<main>
+		<ul class="cursus-list">
+			{% for cursus in theme.cursus %}
+				<li class="card">
+					<div class="card-img">
+						<img src="{{asset('img/board-5599231_640.png')}}" alt="">
+					</div>
+					<div class="card-body">
+						<h2>{{ cursus.name }}</h2>
+						<p class="price">Prix:
+							{{ cursus.price }}
+							€</p>
+						<div>
+							<a href="{{path('app_lesson', {'id':cursus.id}) }}">
+								<button>Voir les leçons</button>
+							</a>
+							<a href="">
+								<button class="btn-danger">Acheter</button>
+							</a>
+						</div>
+					</div>
+				</li>
+
+			{% endfor %}
+		</ul>
+	</main>
+	{% include "footer.html.twig" %}
+{% endblock %}

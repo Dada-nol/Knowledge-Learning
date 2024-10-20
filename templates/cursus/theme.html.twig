@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+	<main class="main-theme">
+		{% for theme in themes %}
+
+			<div class="card">
+				<div class="card-img">
+					<img src="{{asset('img/board-5599231_640.png')}}" alt="">
+				</div>
+				<div class="card-body">
+					<h2>{{ theme.name }}</h2>
+					<a href="{{path('app_cursus', {'id':theme.id}) }}">
+						<button>Voir les cursus</button>
+					</a>
+				</div>
+			</div>
+
+		{% endfor %}
+	</main>
+	{% include "footer.html.twig" %}
+{% endblock %}

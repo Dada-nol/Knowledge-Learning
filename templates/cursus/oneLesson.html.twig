@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+
+	<ul>
+		{% if lesson %}
+
+			<h1>{{lesson.name}}</h1>
+
+			<h2>Lorem ipsum dolor sit amet.</h2>
+			<p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+		{% else %}
+			<p>Cette leçon n'est pas disponible</p>
+		{% endif %}
+	</ul>
+
+	{% include "footer.html.twig" %}
+{% endblock %}
