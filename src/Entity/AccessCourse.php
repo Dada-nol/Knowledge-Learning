@@ -6,7 +6,7 @@ use App\Repository\UserCourseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: UserCourseRepository::class)]
-class UserCourse
+class AccessCourse
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

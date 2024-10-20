@@ -39,9 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private bool $isVerified = false;
 
     /**
-     * @var Collection<int, UserCourse>
+     * @var Collection<int, AccessCourse>
      */
-    #[ORM\OneToMany(targetEntity: UserCourse::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: AccessCourse::class, mappedBy: 'user')]
     private Collection $course;
 
     public function __construct()
@@ -137,14 +137,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, UserCourse>
+     * @return Collection<int, AccessCourse>
      */
     public function getCourse(): Collection
     {
         return $this->course;
     }
 
-    public function addCourse(UserCourse $course): static
+    public function addCourse(AccessCourse $course): static
     {
         if (!$this->course->contains($course)) {
             $this->course->add($course);
@@ -154,7 +154,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeCourse(UserCourse $course): static
+    public function removeCourse(AccessCourse $course): static
     {
         if ($this->course->removeElement($course)) {
             // set the owning side to null (unless already changed)

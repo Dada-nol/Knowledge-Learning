@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\UserCourse;
+use App\Entity\AccessCourse;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<UserCourse>
+ * @extends ServiceEntityRepository<AccessCourse>
  */
 class UserCourseRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserCourse::class);
+        parent::__construct($registry, AccessCourse::class);
     }
 
     //    /**
-    //     * @return UserCourse[] Returns an array of UserCourse objects
+    //     * @return AccessCourse[] Returns an array of AccessCourse objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class UserCourseRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?UserCourse
+    //    public function findOneBySomeField($value): ?AccessCourse
     //    {
     //        return $this->createQueryBuilder('u')
     //            ->andWhere('u.exampleField = :val')

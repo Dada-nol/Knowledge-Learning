@@ -17,7 +17,7 @@ class Course
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
@@ -26,14 +26,14 @@ class Course
     private ?Lesson $lesson = null;
 
     /**
-     * @var Collection<int, UserCourse>
+     * @var Collection<int, AccessCourse>
      */
-    #[ORM\OneToMany(targetEntity: UserCourse::class, mappedBy: 'course')]
-    private Collection $userCourse;
+    #[ORM\OneToMany(targetEntity: AccessCourse::class, mappedBy: 'course')]
+    private Collection $accessCourse;
 
     public function __construct()
     {
-        $this->userCourse = new ArrayCollection();
+        $this->accessCourse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,12 +43,12 @@ class Course
 
     public function getName(): ?string
     {
-        return $this->name;
+        return $this->title;
     }
 
-    public function setName(string $name): static
+    public function setName(string $title): static
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -78,26 +78,26 @@ class Course
     }
 
     /**
-     * @return Collection<int, UserCourse>
+     * @return Collection<int, AccessCourse>
      */
-    public function getUserCourse(): Collection
+    public function getAccessCourse(): Collection
     {
-        return $this->userCourse;
+        return $this->accessCourse;
     }
 
-    public function addUserCourse(UserCourse $userCourse): static
+    public function addAccessCourse(AccessCourse $accessCourse): static
     {
-        if (!$this->userCourse->contains($userCourse)) {
-            $this->userCourse->add($userCourse);
-            $userCourse->setCourse($this);
+        if (!$this->accessCourse->contains($accessCourse)) {
+            $this->accessCourse->add($accessCourse);
+            $accessCourse->setCourse($this);
         }
 
         return $this;
     }
 
-    public function removeUserCourse(UserCourse $userCourse): static
+    public function removeAccessCourse(AccessCourse $userCourse): static
     {
-        if ($this->userCourse->removeElement($userCourse)) {
+        if ($this->accessCourse->removeElement($userCourse)) {
             // set the owning side to null (unless already changed)
             if ($userCourse->getCourse() === $this) {
                 $userCourse->setCourse(null);
