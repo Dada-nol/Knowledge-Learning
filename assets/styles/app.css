@@ -19,19 +19,25 @@ li {
   list-style: none;
 }
 
-.nav-list a {
+.nav-item {
   text-decoration: none;
   color: #00497c;
   text-transform: uppercase;
 }
 
-.nav-list a:hover {
+.nav-item:hover {
   color: #82b864;
   text-decoration: underline;
 }
 
-.logout {
+.nav-logout {
+  text-decoration: none;
+  text-transform: uppercase;
   color: #cd2c2e;
+}
+
+.nav-logout:hover {
+  text-decoration: underline;
 }
 
 footer {
@@ -70,6 +76,48 @@ button {
   width: 100px;
   height: 40px;
   color: #f1f8fc;
-  background-color: #0074c7;
+  background-color: #82b864;
   border: #00497c solid 2px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #00497c;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 300px;
+  border: #00497c solid 2px;
+  border-radius: 20px;
+}
+
+.card img {
+  border: #384050 solid 1px;
+  border-radius: 25px;
+  margin-top: 20px;
+  width: 250px;
+  height: 200px;
+  max-width: 100%;
+}
+
+.card h2 {
+  margin: 0;
+}
+
+.card-body {
+  margin-bottom: 20px;
+  color: #00497c;
+}
+
+.main-theme {
+  margin: 50px 0 50px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 10px;
 }

@@ -13,49 +13,49 @@
 			{% if is_granted('ROLE_ADMIN') %}
 				<ul class="nav-list">
 					<li>
-						<a href="{{path('app_home')}}">Accueil</a>
+						<a class="nav-item" href="{{path('app_home')}}">Accueil</a>
 					</li>
 					<li>
-						<a href="{{path('admin')}}">Admin</a>
+						<a class="nav-item" href="{{path('admin')}}">Admin</a>
 					</li>
 					<li>
-						<a href="{{path('app_theme')}}">Cours</a>
+						<a class="nav-item" href="{{path('app_theme')}}">Cours</a>
 					</li>
 					<li>
-						<a href="">Panier</a>
+						<a class="nav-item" href="">Panier</a>
 					</li>
 					<li>
-						<a href="{{path('app_logout')}}">Se déconnecter</a>
+						<a class="nav-logout" href="{{path('app_logout')}}">Se déconnecter</a>
 					</li>
 				</ul>
 			{% elseif is_granted('ROLE_CLIENT')%}
 				<ul class="nav-list">
 					<li>
-						<a href="{{path('app_home')}}">Accueil</a>
+						<a class="nav-item" href="{{path('app_home')}}">Accueil</a>
 					</li>
 					<li>
-						<a href="{{path('app_theme')}}">Cours</a>
+						<a class="nav-item" href="{{path('app_theme')}}">Cours</a>
 					</li>
 					<li>
-						<a href="">Panier</a>
+						<a class="nav-item" href="">Panier</a>
 					</li>
 					<li>
-						<a class="logout" href="{{path('app_logout')}}">Se déconnecter</a>
+						<a class="nav-logout" href="{{path('app_logout')}}">Se déconnecter</a>
 					</li>
 				</ul>
 			{% else %}
 				<ul class="nav-list">
 					<li>
-						<a href="{{path('app_home')}}">Accueil</a>
+						<a class="nav-item" href="{{path('app_home')}}">Accueil</a>
 					</li>
 					<li>
-						<a href="{{path('app_register')}}">S'inscrire</a>
+						<a class="nav-item" href="{{path('app_register')}}">S'inscrire</a>
 					</li>
 					<li>
-						<a href="{{path('app_theme')}}">Cours</a>
+						<a class="nav-item" href="{{path('app_theme')}}">Cours</a>
 					</li>
 					<li>
-						<a href="{{path('app_login')}}">Se connecter</a>
+						<a class="nav-item" href="{{path('app_login')}}">Se connecter</a>
 					</li>
 				</ul>
 			{% endif %}

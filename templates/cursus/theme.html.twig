@@ -6,18 +6,21 @@
 {% block body %}
 
 	{% include "header.html.twig" %}
-
-	<ul>
+	<main class="main-theme">
 		{% for theme in themes %}
-			<li>
+
+			<div class="card">
+				<div class="card-img">
+					<img src="{{asset('img/board-5599231_640.png')}}" alt=""></img>
+			</div>
+			<div class="card-body">
 				<h2>{{ theme.name }}</h2>
 				<a href="{{path('app_cursus', {'id':theme.id}) }}">
 					<button>Voir les cursus</button>
 				</a>
-			</li>
-		{% endfor %}
-	</ul>
+			</div>
+		</div>
 
-	{% include "footer.html.twig" %}
-
-{% endblock %}
+	{% endfor %}
+</main>
+{% include "footer.html.twig" %}{% endblock %}
