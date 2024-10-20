@@ -14,12 +14,17 @@
 					</div>
 					<div class="card-body">
 						<h2>{{ cursus.name }}</h2>
-						<p>Prix:
+						<p class="price">Prix:
 							{{ cursus.price }}
 							€</p>
-						<a href="{{path('app_lesson', {'id':cursus.id}) }}">
-							<button>Voir les leçons</button>
-						</a>
+						<div>
+							<a href="{{path('app_lesson', {'id':cursus.id}) }}">
+								<button>Voir les leçons</button>
+							</a>
+							<a href="">
+								<button class="btn-danger">Acheter</button>
+							</a>
+						</div>
 					</div>
 				</li>
 

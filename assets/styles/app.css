@@ -79,19 +79,24 @@ button {
   background-color: #82b864;
   border: #00497c solid 2px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 button:hover {
   background-color: #00497c;
 }
 
+.btn-danger:hover {
+  background-color: #cd2c2e;
+}
+
 .card {
+  width: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  width: 300px;
   border: #00497c solid 2px;
   border-radius: 20px;
 }
@@ -118,6 +123,10 @@ button:hover {
   color: #00497c;
 }
 
+.price {
+  color: #cd2c2e;
+}
+
 .main-theme {
   margin: 50px 0 50px 0;
   display: grid;
@@ -132,4 +141,13 @@ button:hover {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+}
+
+.lesson-list-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+  margin: 20px;
+  border-bottom: #00497c dotted 2px;
 }
