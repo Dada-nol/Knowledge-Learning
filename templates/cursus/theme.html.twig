@@ -11,16 +11,17 @@
 
 			<div class="card">
 				<div class="card-img">
-					<img src="{{asset('img/board-5599231_640.png')}}" alt=""></img>
+					<img src="{{asset('img/board-5599231_640.png')}}" alt="">
+				</div>
+				<div class="card-body">
+					<h2>{{ theme.name }}</h2>
+					<a href="{{path('app_cursus', {'id':theme.id}) }}">
+						<button>Voir les cursus</button>
+					</a>
+				</div>
 			</div>
-			<div class="card-body">
-				<h2>{{ theme.name }}</h2>
-				<a href="{{path('app_cursus', {'id':theme.id}) }}">
-					<button>Voir les cursus</button>
-				</a>
-			</div>
-		</div>
 
-	{% endfor %}
-</main>
-{% include "footer.html.twig" %}{% endblock %}
+		{% endfor %}
+	</main>
+	{% include "footer.html.twig" %}
+{% endblock %}

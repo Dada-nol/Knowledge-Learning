@@ -5,21 +5,26 @@
 
 {% block body %}
 	{% include "header.html.twig" %}
-	<ul>
-		{% for cursus in theme.cursus %}
-			<li>
-				<h2>{{ cursus.name }}</h2>
-				<p>Prix:
-					{{ cursus.price }}
-					€</p>
-				<a href="{{path('app_lesson', {'id':cursus.id}) }}">
-					<button>Voir les leçons</button>
-				</a>
-			</li>
+	<main>
+		<ul class="cursus-list">
+			{% for cursus in theme.cursus %}
+				<li class="card">
+					<div class="card-img">
+						<img src="{{asset('img/board-5599231_640.png')}}" alt="">
+					</div>
+					<div class="card-body">
+						<h2>{{ cursus.name }}</h2>
+						<p>Prix:
+							{{ cursus.price }}
+							€</p>
+						<a href="{{path('app_lesson', {'id':cursus.id}) }}">
+							<button>Voir les leçons</button>
+						</a>
+					</div>
+				</li>
 
-		{% endfor %}
-	</ul>
-
+			{% endfor %}
+		</ul>
+	</main>
 	{% include "footer.html.twig" %}
-
 {% endblock %}
