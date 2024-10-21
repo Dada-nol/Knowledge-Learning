@@ -23,6 +23,26 @@ class Lesson
     #[ORM\JoinColumn(nullable: false)]
     private ?Cursus $cursus = null;
 
+    #[ORM\OneToOne(targetEntity: Course::class, mappedBy: "lesson", cascade: ["persist", "remove"])]
+    private $course;
+
+
+    public function getCourse()
+    {
+        return $this->course;
+    }
+
+    public function setCourse(Course $course): self
+    {
+        $this->course = $course;
+
+        if ($course !== null && $course->getLesson() !== $this) {
+            $course->setLesson($this);
+        }
+
+        return $this;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

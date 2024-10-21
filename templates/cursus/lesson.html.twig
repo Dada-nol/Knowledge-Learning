@@ -4,20 +4,25 @@
 {% endblock %}
 
 {% block body %}
-{% include "header.html.twig" %}
-<ul>
-	{% for lesson in cursus.lessons %}
-		<li class="lesson-list-item">
-			<h2>{{ lesson.name }}</h2>
-			<p class="price">Prix:
-				{{ lesson.price }}
-				€</p>
-			<div<<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
-				<button>Commencer le cours</button>
-			</a>
-			<a href="">
-				<button class="btn-danger">Acheter la leçon</button>
-			</a>
-		</li>
-	</div>
-</li>{% endfor %}</ul>{% include "footer.html.twig" %}{% endblock %}
+	{% include "header.html.twig" %}
+	<ul>
+		{% for lesson in cursus.lessons %}
+			<li class="lesson-list-item">
+				<h2>{{ lesson.name }}</h2>
+				<p class="price">Prix:
+					{{ lesson.price }}
+					€</p>
+				<div>
+					<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
+						<button>Commencer le cours</button>
+					</a>
+					<form action="{{ path('cart_addLesson', {'id': lesson.id}) }}" method="POST">
+						<button class="" type="submit">Ajouter au panier</button>
+					</form>
+				</div>
+
+			</li>
+		{% endfor %}
+	</ul>
+	{% include "footer.html.twig" %}
+{% endblock %}

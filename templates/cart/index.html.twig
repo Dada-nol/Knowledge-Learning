@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	{% for item in items %}
+		<div>
+			<div>
+				<div>
+					<div>
+						<p>Nom du produit :</p>
+						{% if item.lessons is not null %}
+							<p>
+								<b>{{ item.lessons.name }}</b>
+							</p>
+						{% elseif item.cursus is not null %}
+							<p>
+								<b>{{ item.cursus.name }}</b>
+							</p>
+							<p>Inclus :
+							</p>
+							{% for lesson in item.cursus.lessons %}
+								<p>
+									<i>{{ lesson.name }}</i>
+								</p>
+							{% endfor %}
+						{% endif %}
+					</div>
+					<div>
+						<p>Prix :</p>
+						{% if item.lessons is not null %}
+							<p class="price">{{ item.lessons.price }}
+								€</p>
+						{% elseif item.cursus is not null %}
+							<p class="price">{{ item.cursus.price }}
+								€</p>
+						{% endif %}
+					</div>
+					<div>
+						{{ form_start(deleteForms[item.id]) }}
+						<button type="submit">Supprimer</button>
+						{{ form_end(deleteForms[item.id]) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+
+</br>
+<div>
+	<div>
+		<h4>Total :
+			{{ cart.getTotal() }}
+			€</h4>
+	</div>
+	<div>
+		<form action="{{ path('checkout') }}" method="POST">
+			<button type="submit" class="btn-danger">Payer maintenant</button>
+		</form>
+
+		<a href="{{path("app_theme")}}">
+			<button>Continuer mes achats</button>
+		</a>
+	</div>
+
+</div>
+
+{% include "footer.html.twig" %}{% endblock %}
