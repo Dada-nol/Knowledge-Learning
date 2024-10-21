@@ -82,7 +82,11 @@ class Cart
         $total = 0;
 
         foreach ($this->getCartItems() as $item) {
-            $total += $item->getLessons()->getPrice() * $item->getQuantity();
+            if ($item->getLessons()) {
+                $total += $item->getLessons()->getPrice() * $item->getQuantity();
+            } elseif ($item->getCursus()) {
+                $total += $item->getCursus()->getPrice() * $item->getQuantity();
+            }
         }
 
         return $total;

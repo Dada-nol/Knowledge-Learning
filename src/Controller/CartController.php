@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
+use App\Entity\Cursus;
 use App\Entity\Lesson;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -43,11 +44,20 @@ class CartController extends AbstractController
     return $this->render('cart/index.html.twig', ['items' => $items, 'cart' => $cart, 'deleteForms' => $deleteForms]);
   }
 
-  #[Route('/cart/add/{id}', name: 'cart_add')]
-  public function addToCart(EntityManagerInterface $entityManager, int $id): Response
+  #[Route('/cart/addLesson/{id}', name: 'cart_addLesson')]
+  public function addLessonToCart(EntityManagerInterface $entityManager, int $id): Response
   {
     $lesson = $entityManager->getRepository(Lesson::class)->find($id);
-    $this->cartService->addToCart($lesson);
+    $this->cartService->addLessonToCart($lesson);
+
+    return $this->redirectToRoute('cart');
+  }
+
+  #[Route('/cart/addCursus/{id}', name: 'cart_addCursus')]
+  public function addCursusToCart(EntityManagerInterface $entityManager, int $id): Response
+  {
+    $cursus = $entityManager->getRepository(Cursus::class)->find($id);
+    $this->cartService->addCursusToCart($cursus);
 
     return $this->redirectToRoute('cart');
   }

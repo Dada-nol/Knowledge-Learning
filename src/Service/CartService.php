@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Cart;
 use App\Entity\CartItem;
+use App\Entity\Cursus;
 use App\Entity\Lesson;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -33,7 +34,7 @@ class CartService
     return $this->em->getRepository(CartItem::class)->findBy(['cart' => $cart, 'lesson' => $lesson]);
   }
 
-  public function addToCart(Lesson $lesson)
+  public function addLessonToCart(Lesson $lesson)
   {
 
     $user = $this->security->getUser();
@@ -44,6 +45,7 @@ class CartService
 
     $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $user]);
     $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['cart' => $cart, 'lessons' => $lesson]);
+
 
     if (!$cart) {
       $cart = new Cart();
@@ -57,6 +59,39 @@ class CartService
 
       $cartItem = new CartItem();
       $cartItem->setLessons($lesson);
+      $cartItem->setQuantity(1);
+      $cartItem->setCart($cart);
+      $this->em->persist($cartItem);
+    }
+
+    $this->em->flush();
+  }
+
+  public function addCursusToCart(Cursus $cursus)
+  {
+
+    $user = $this->security->getUser();
+
+    if (!$user) {
+      throw new \Exception("L'utilisateur n'est pas connecté.");
+    }
+
+    $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $user]);
+    $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['cart' => $cart, 'cursus' => $cursus]);
+
+
+    if (!$cart) {
+      $cart = new Cart();
+      $cart->setUser($user);
+      $this->em->persist($cart);
+    }
+
+    if ($cartItem) {
+      $cartItem->setQuantity($cartItem->getQuantity() + 1);
+    } else {
+
+      $cartItem = new CartItem();
+      $cartItem->setCursus($cursus);
       $cartItem->setQuantity(1);
       $cartItem->setCart($cart);
       $this->em->persist($cartItem);

@@ -16,7 +16,7 @@
 					<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
 						<button>Commencer le cours</button>
 					</a>
-					<form action="{{ path('cart_add', {'id': lesson.id}) }}" method="POST">
+					<form action="{{ path('cart_addLesson', {'id': lesson.id}) }}" method="POST">
 						<button class="" type="submit">Ajouter au panier</button>
 					</form>
 				</div>

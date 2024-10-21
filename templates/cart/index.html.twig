@@ -9,12 +9,23 @@
 				<div>
 					<div>
 						<p>Nom du produit</p>
-						<p>{{ item.lessons.name }}</p>
+
+						{# Vérification si l'item est une Lesson ou un Cursus #}
+						{% if item.lessons is not null %}
+							<p>{{ item.lessons.name }}</p>
+						{% elseif item.cursus is not null %}
+							<p>{{ item.cursus.name }}</p>
+						{% endif %}
 					</div>
 					<div>
 						<p class="price">Prix</p>
-						<p>{{ item.lessons.price }}
-							€</p>
+						{% if item.lessons is not null %}
+							<p>{{ item.lessons.price }}
+								€</p>
+						{% elseif item.cursus is not null %}
+							<p>{{ item.cursus.price }}
+								€</p>
+						{% endif %}
 					</div>
 					<div>
 						{{ form_start(deleteForms[item.id]) }}
@@ -24,7 +35,6 @@
 				</div>
 			</div>
 		</div>
-
 	{% endfor %}
 
 </br>
