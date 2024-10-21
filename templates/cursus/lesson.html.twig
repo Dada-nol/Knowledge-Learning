@@ -13,7 +13,7 @@
 					{{ lesson.price }}
 					€</p>
 				<div>
-					<a href="{{path('app_one_lesson', {'id':lesson.id}) }}">
+					<a href="{{path('app_course', {'id':lesson.id}) }}">
 						<button>Commencer le cours</button>
 					</a>
 					<form action="{{ path('cart_addLesson', {'id': lesson.id}) }}" method="POST">

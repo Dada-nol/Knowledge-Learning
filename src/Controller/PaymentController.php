@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AccessCourse;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Service\StripeService;
@@ -51,11 +52,11 @@ class PaymentController extends AbstractController
   #[Route('/payment/success', name: 'payment_success')]
   public function paymentSuccess(Security $security, EntityManagerInterface $entityManager): Response
   {
-    /*  $user = $security->getUser();
+    $user = $security->getUser();
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
     $cartItems = $cart->getCartItems();
 
-    foreach ($cartItems as $item) {
+    /* foreach ($cartItems as $item) {
       $stock = $item->getStock();
       $quantityPurchased = $item->getQuantity();
 
@@ -65,10 +66,30 @@ class PaymentController extends AbstractController
         $entityManager->persist($stock);
       }
       $entityManager->remove($item);
+    } */
+
+
+    $entityManager->flush();
+
+    foreach ($cartItems as $item) {
+      $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
+        'user' => $user,
+        'course' => $item->getLessons()->getCourse(),
+      ]);
+
+      if ($accessCourse) {
+        $accessCourse->setAvailable(true); // Débloquer l'accès
+        $entityManager->persist($accessCourse);
+      } else {
+        $accessCourse = new AccessCourse();
+        $accessCourse->setUser($user);
+        $accessCourse->setCourse($item->getLessons()->getCourse());
+        $accessCourse->setAvailable(true);
+        $entityManager->persist($accessCourse);
+      }
     }
 
-
-    $entityManager->flush(); */
+    $entityManager->flush();
 
     return $this->render('payment/success.html.twig');
   }

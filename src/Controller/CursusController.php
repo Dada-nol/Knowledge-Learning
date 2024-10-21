@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CursusController extends AbstractController
 {
@@ -47,10 +48,16 @@ class CursusController extends AbstractController
         ]);
     }
 
-    #[Route('/lesson/{id}', name: 'app_one_lesson')]
-    public function oneLesson(EntityManagerInterface $em, int $id): Response
+    #[Route('/lesson/{id}/course', name: 'app_course')]
+    public function oneLesson(EntityManagerInterface $em, int $id, AuthorizationCheckerInterface $authChecker): Response
     {
         $lesson = $em->getRepository(Lesson::class)->find($id);
+        $course = $lesson->getCourse();
+
+        if (!$authChecker->isGranted('CAN_ACCESS', $course)) {
+            // Redirige vers une page d'erreur ou de connexion
+            return $this->redirectToRoute('app_home');
+        }
 
         return $this->render('cursus/oneLesson.html.twig', [
             'lesson' => $lesson,
