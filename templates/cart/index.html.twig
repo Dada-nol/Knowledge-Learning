@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% include "header.html.twig" %}
+
+	{% for item in items %}
+		<div>
+			<div>
+				<div>
+					<div>
+						<p>Nom du produit</p>
+						<p>{{ item.lessons.name }}</p>
+					</div>
+					<div>
+						<p class="price">Prix</p>
+						<p>{{ item.lessons.price }}
+							€</p>
+					</div>
+					<div>
+						{{ form_start(deleteForms[item.id]) }}
+						<button type="submit">Supprimer</button>
+						{{ form_end(deleteForms[item.id]) }}
+					</div>
+				</div>
+			</div>
+		</div>
+
+	{% endfor %}
+
+</br>
+<div>
+	<div>
+		<h4>Total :
+			{{ cart.getTotal() }}
+			€</h4>
+	</div>
+	<div>
+		{# {% include "payment/checkout.html.twig" %} #}
+		<a href="{{path("app_theme")}}">
+			<button>Continuer mes achats</button>
+		</a>
+	</div>
+
+</div>
+
+{% include "footer.html.twig" %}{% endblock %}

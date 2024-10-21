@@ -17,7 +17,7 @@ class Cart
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?User $user;
 
     /**
      * @var Collection<int, CartItem>

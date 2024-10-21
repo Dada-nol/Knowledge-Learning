@@ -11,30 +11,43 @@ use Symfony\Bundle\SecurityBundle\Security;
 class CartService
 {
   private $em;
-  private $user;
-  private $lesson;
+  private $security;
 
-  public function __construct(EntityManagerInterface $em, Security $security, Lesson $lesson)
+  public function __construct(EntityManagerInterface $em, Security $security)
   {
     $this->em = $em;
-    $this->user = $security->getUser();
-    $this->lesson = $lesson;
+    $this->security = $security;
   }
 
-  public function getCartItems()
+  public function getCartItems(Lesson $lesson)
   {
-    $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $this->user]);
 
-    return $this->em->getRepository(CartItem::class)->findBy(['cart' => $cart, 'lesson' => $this->lesson]);
+    $user = $this->security->getUser();
+
+    if (!$user) {
+      throw new \Exception("L'utilisateur n'est pas connecté.");
+    }
+
+    $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $user]);
+
+    return $this->em->getRepository(CartItem::class)->findBy(['cart' => $cart, 'lesson' => $lesson]);
   }
 
-  public function addToCart()
+  public function addToCart(Lesson $lesson)
   {
-    $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $this->user]);
-    $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['cart' => $cart, 'lesson' => $this->lesson]);
+
+    $user = $this->security->getUser();
+
+    if (!$user) {
+      throw new \Exception("L'utilisateur n'est pas connecté.");
+    }
+
+    $cart = $this->em->getRepository(Cart::class)->findOneBy(['user' => $user]);
+    $cartItem = $this->em->getRepository(CartItem::class)->findOneBy(['cart' => $cart, 'lessons' => $lesson]);
 
     if (!$cart) {
-      $cart = new Cart($this->user);
+      $cart = new Cart();
+      $cart->setUser($user);
       $this->em->persist($cart);
     }
 
@@ -43,7 +56,7 @@ class CartService
     } else {
 
       $cartItem = new CartItem();
-      $cartItem->setLessons($this->lesson);
+      $cartItem->setLessons($lesson);
       $cartItem->setQuantity(1);
       $cartItem->setCart($cart);
       $this->em->persist($cartItem);
@@ -58,7 +71,7 @@ class CartService
     $this->em->flush();
   }
 
-  public function clearCart()
+  /* public function clearCart()
   {
     $cartItems = $this->getCartItems();
 
@@ -67,5 +80,5 @@ class CartService
     }
 
     $this->em->flush();
-  }
+  } */
 }
