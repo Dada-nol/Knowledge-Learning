@@ -24,3 +24,7 @@ services:
   App\Security\AccessDeniedHandler:
     arguments:
       $router: "@router"
+
+  App\Service\StripeService:
+    arguments:
+      $stripeApiKey: "%env(STRIPE_API_KEY)%"

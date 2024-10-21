@@ -8,22 +8,31 @@
 			<div>
 				<div>
 					<div>
-						<p>Nom du produit</p>
-
-						{# Vérification si l'item est une Lesson ou un Cursus #}
+						<p>Nom du produit :</p>
 						{% if item.lessons is not null %}
-							<p>{{ item.lessons.name }}</p>
+							<p>
+								<b>{{ item.lessons.name }}</b>
+							</p>
 						{% elseif item.cursus is not null %}
-							<p>{{ item.cursus.name }}</p>
+							<p>
+								<b>{{ item.cursus.name }}</b>
+							</p>
+							<p>Inclus :
+							</p>
+							{% for lesson in item.cursus.lessons %}
+								<p>
+									<i>{{ lesson.name }}</i>
+								</p>
+							{% endfor %}
 						{% endif %}
 					</div>
 					<div>
-						<p class="price">Prix</p>
+						<p>Prix :</p>
 						{% if item.lessons is not null %}
-							<p>{{ item.lessons.price }}
+							<p class="price">{{ item.lessons.price }}
 								€</p>
 						{% elseif item.cursus is not null %}
-							<p>{{ item.cursus.price }}
+							<p class="price">{{ item.cursus.price }}
 								€</p>
 						{% endif %}
 					</div>
@@ -45,7 +54,10 @@
 			€</h4>
 	</div>
 	<div>
-		{# {% include "payment/checkout.html.twig" %} #}
+		<form action="{{ path('checkout') }}" method="POST">
+			<button type="submit" class="btn-danger">Payer maintenant</button>
+		</form>
+
 		<a href="{{path("app_theme")}}">
 			<button>Continuer mes achats</button>
 		</a>

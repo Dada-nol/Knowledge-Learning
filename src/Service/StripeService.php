@@ -2,21 +2,25 @@
 
 namespace App\Service;
 
-use Stripe\Stripe;
 use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class StripeService
 {
-  public function __construct()
+  private string $stripeApiKey;
+
+  public function __construct(string $stripeApiKey)
   {
-    Stripe::setApiKey($_ENV['STRIPE_SECRET_KEY']);
+    $this->stripeApiKey = $stripeApiKey;
   }
 
-  public function createCheckoutSession(array $items, string $successUrl, string $cancelUrl)
+  public function createCheckoutSession(array $lineItems, string $successUrl, string $cancelUrl): Session
   {
+    Stripe::setApiKey($this->stripeApiKey);
+
     return Session::create([
       'payment_method_types' => ['card'],
-      'line_items' => [$items],
+      'line_items' => $lineItems,
       'mode' => 'payment',
       'success_url' => $successUrl,
       'cancel_url' => $cancelUrl,
