@@ -21,7 +21,6 @@ class CartItem
     private ?int $quantity = null;
 
     #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Lesson $lessons = null;
 
     #[ORM\ManyToOne]

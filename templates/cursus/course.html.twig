@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+	{% if lesson.course is not empty%}
+		{% for course in lesson.course %}
+
+			<h1>{{lesson.name}}</h1>
+			<h2>{{course.title}}</h2>
+			<p>{{course.content}}</p>
+
+			{% if not isCertified %}
+
+				<form action="{{path('app_certified', {'id': lesson.id})}}" method="POST">
+					<button type='submit' class='btn-danger'>Terminer le cours</button>
+				</form>
+			{% else %}
+				<br>
+				<p>
+					<b>Ce cours est complété</b>
+				</p>
+				<a href="{{path('app_home')}}">
+					<button class'btn-danger'>Retour à l'accueil</button>
+				</a>
+			{% endif %}
+		{% endfor %}
+	{% else %}
+		<p>Ce cours n'est pas disponible pour le moment ou est en cours de préparation</p>
+	{% endif %}
+
+
+	{% include "footer.html.twig" %}
+{% endblock %}

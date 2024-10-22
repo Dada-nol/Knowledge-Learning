@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\AccessCourse;
 use App\Entity\Cart;
 use App\Entity\User;
 use App\Service\StripeService;
@@ -51,27 +52,81 @@ class PaymentController extends AbstractController
   #[Route('/payment/success', name: 'payment_success')]
   public function paymentSuccess(Security $security, EntityManagerInterface $entityManager): Response
   {
-    /*  $user = $security->getUser();
+    $user = $security->getUser();
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
     $cartItems = $cart->getCartItems();
 
+    $entityManager->flush();
+
     foreach ($cartItems as $item) {
-      $stock = $item->getStock();
-      $quantityPurchased = $item->getQuantity();
+      $lesson = $item->getLessons();
 
-      if ($stock) {
+      if ($lesson) {
+        $courses = $lesson->getCourse();
 
-        $stock->setQuantity($stock->getQuantity() - $quantityPurchased);
-        $entityManager->persist($stock);
+        if (!$courses || $courses->isEmpty()) {
+          continue;
+        }
+
+        $course = $courses->first();
+
+        $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
+          'user' => $user,
+          'course' => $course,
+        ]);
+
+        if ($accessCourse) {
+          $accessCourse->setAvailable(true);
+          $entityManager->persist($accessCourse);
+        } else {
+          $accessCourse = new AccessCourse();
+          $accessCourse->setUser($user);
+          $accessCourse->setCourse($course);
+          $accessCourse->setAvailable(true);
+          $entityManager->persist($accessCourse);
+        }
+      } else {
+        $cursus = $item->getCursus();
+
+        if ($cursus) {
+          $cursusLessons = $cursus->getLessons();
+
+          foreach ($cursusLessons as $cursusLesson) {
+            $cursusCourses = $cursusLesson->getCourse();
+
+            if (!$cursusCourses || $cursusCourses->isEmpty()) {
+              continue;
+            }
+
+            $cursusCourse = $cursusCourses->first();
+
+            $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
+              'user' => $user,
+              'course' => $cursusCourse,
+            ]);
+
+            if ($accessCourse) {
+              $accessCourse->setAvailable(true);
+              $entityManager->persist($accessCourse);
+            } else {
+              $accessCourse = new AccessCourse();
+              $accessCourse->setUser($user);
+              $accessCourse->setCourse($cursusCourse);
+              $accessCourse->setAvailable(true);
+              $entityManager->persist($accessCourse);
+            }
+          }
+        }
       }
+
       $entityManager->remove($item);
     }
 
-
-    $entityManager->flush(); */
+    $entityManager->flush();
 
     return $this->render('payment/success.html.twig');
   }
+
 
   #[Route('/payment/cancel', name: 'payment_cancel')]
   public function paymentCancel(): Response

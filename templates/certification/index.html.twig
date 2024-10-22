@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+
+	<ul>
+		{% if certificates is not empty %}
+			{% for certificate in certificates %}
+				<li>
+					<h2>Certification pour :
+						{{ certificate.lesson ? certificate.lesson.name : certificate.cursus.name }}</h2>
+					<p>Status :
+						{{ certificate.isCertified ? 'Certifié' : 'Non Certifié' }}</p>
+				</li>
+			{% endfor %}
+		{% else %}
+			<li>Aucune certification disponible</li>
+		{% endif %}
+	</ul>
+
+	{% include "footer.html.twig" %}
+{% endblock %}

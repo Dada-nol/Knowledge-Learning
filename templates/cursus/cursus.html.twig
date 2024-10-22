@@ -14,16 +14,25 @@
 					</div>
 					<div class="card-body">
 						<h2>{{ cursus.name }}</h2>
-						<p class="price">Prix:
-							{{ cursus.price }}
-							€</p>
+
+						<a href="{{path('app_lesson', {'id':cursus.id}) }}">
+							<button>Voir les leçons</button>
+						</a>
 						<div>
-							<a href="{{path('app_lesson', {'id':cursus.id}) }}">
-								<button>Voir les leçons</button>
-							</a>
-							<form action="{{ path('cart_addCursus', {'id': cursus.id}) }}" method="POST">
-								<button class="btn-danger" type="submit">Acheter</button>
-							</form>
+
+							{% if not certificationStatus[cursus.id] %}
+								<form action="{{ path('cart_addCursus', {'id': cursus.id}) }}" method="POST">
+									<button class="btn-danger" type="submit">Acheter</button>
+								</form>
+								<p class="price">Prix:
+									{{ cursus.price }}
+									€</p>
+							{% else %}
+								<p>
+									<b>Félicitations ! Cursus validé !</b>
+								</p>
+
+							{% endif %}
 						</div>
 
 					</div>

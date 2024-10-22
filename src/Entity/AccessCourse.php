@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\UserCourseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
 
 #[ORM\Entity(repositoryClass: UserCourseRepository::class)]
 class AccessCourse
@@ -20,7 +21,7 @@ class AccessCourse
     private ?Course $course = null;
 
     #[ORM\Column]
-    private ?bool $isAvailable = null;
+    private ?bool $isAvailable = false;
 
     public function getId(): ?int
     {
@@ -62,4 +63,5 @@ class AccessCourse
 
         return $this;
     }
+
 }

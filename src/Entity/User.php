@@ -44,9 +44,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: AccessCourse::class, mappedBy: 'user')]
     private Collection $course;
 
+    /**
+     * @var Collection<int, Certificate>
+     */
+    #[ORM\OneToMany(targetEntity: Certificate::class, mappedBy: 'user')]
+    private Collection $certificates;
+
     public function __construct()
     {
         $this->course = new ArrayCollection();
+        $this->certificates = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -157,9 +164,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeCourse(AccessCourse $course): static
     {
         if ($this->course->removeElement($course)) {
-            // set the owning side to null (unless already changed)
             if ($course->getUser() === $this) {
                 $course->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getEmail();
+    }
+
+    /**
+     * @return Collection<int, Certificate>
+     */
+    public function getCertificates(): Collection
+    {
+        return $this->certificates;
+    }
+
+    public function addCertificate(Certificate $certificate): static
+    {
+        if (!$this->certificates->contains($certificate)) {
+            $this->certificates->add($certificate);
+            $certificate->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertificate(Certificate $certificate): static
+    {
+        if ($this->certificates->removeElement($certificate)) {
+            // set the owning side to null (unless already changed)
+            if ($certificate->getUser() === $this) {
+                $certificate->setUser(null);
             }
         }
 
