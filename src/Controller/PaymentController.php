@@ -56,43 +56,77 @@ class PaymentController extends AbstractController
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
     $cartItems = $cart->getCartItems();
 
-    /* foreach ($cartItems as $item) {
-      $stock = $item->getStock();
-      $quantityPurchased = $item->getQuantity();
-
-      if ($stock) {
-
-        $stock->setQuantity($stock->getQuantity() - $quantityPurchased);
-        $entityManager->persist($stock);
-      }
-      $entityManager->remove($item);
-    } */
-
-
     $entityManager->flush();
 
     foreach ($cartItems as $item) {
-      $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
-        'user' => $user,
-        'course' => $item->getLessons()->getCourse(),
-      ]);
+      $lesson = $item->getLessons();
 
-      if ($accessCourse) {
-        $accessCourse->setAvailable(true); // Débloquer l'accès
-        $entityManager->persist($accessCourse);
+      if ($lesson) {
+        $courses = $lesson->getCourse();
+
+        if (!$courses || $courses->isEmpty()) {
+          continue;
+        }
+
+        $course = $courses->first();
+
+        $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
+          'user' => $user,
+          'course' => $course,
+        ]);
+
+        if ($accessCourse) {
+          $accessCourse->setAvailable(true);
+          $entityManager->persist($accessCourse);
+        } else {
+          $accessCourse = new AccessCourse();
+          $accessCourse->setUser($user);
+          $accessCourse->setCourse($course);
+          $accessCourse->setAvailable(true);
+          $entityManager->persist($accessCourse);
+        }
       } else {
-        $accessCourse = new AccessCourse();
-        $accessCourse->setUser($user);
-        $accessCourse->setCourse($item->getLessons()->getCourse());
-        $accessCourse->setAvailable(true);
-        $entityManager->persist($accessCourse);
+        $cursus = $item->getCursus();
+
+        if ($cursus) {
+          $cursusLessons = $cursus->getLessons();
+
+          foreach ($cursusLessons as $cursusLesson) {
+            $cursusCourses = $cursusLesson->getCourse();
+
+            if (!$cursusCourses || $cursusCourses->isEmpty()) {
+              continue;
+            }
+
+            $cursusCourse = $cursusCourses->first();
+
+            $accessCourse = $entityManager->getRepository(AccessCourse::class)->findOneBy([
+              'user' => $user,
+              'course' => $cursusCourse,
+            ]);
+
+            if ($accessCourse) {
+              $accessCourse->setAvailable(true);
+              $entityManager->persist($accessCourse);
+            } else {
+              $accessCourse = new AccessCourse();
+              $accessCourse->setUser($user);
+              $accessCourse->setCourse($cursusCourse);
+              $accessCourse->setAvailable(true);
+              $entityManager->persist($accessCourse);
+            }
+          }
+        }
       }
+
+      $entityManager->remove($item);
     }
 
     $entityManager->flush();
 
     return $this->render('payment/success.html.twig');
   }
+
 
   #[Route('/payment/cancel', name: 'payment_cancel')]
   public function paymentCancel(): Response

@@ -58,8 +58,12 @@ class Course
         return $this->content;
     }
 
-    public function setContent(string $content): static
+    public function setContent(?string $content): self
     {
+        if (strlen($content) > 255) { // Limite de longueur
+            throw new \InvalidArgumentException('Le contenu est trop long.');
+        }
+
         $this->content = $content;
 
         return $this;
