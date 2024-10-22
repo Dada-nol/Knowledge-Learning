@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+	{% if lesson.course is not empty%}
+		{% for course in lesson.course %}
+
+			<h1>{{lesson.name}}</h1>
+			<h2>{{course.title}}</h2>
+			<p>{{course.content}}</p>
+
+		{% endfor %}
+	{% else %}
+		<p>Ce cours n'est pas disponible pour le moment ou est en cours de préparation</p>
+	{% endif %}
+
+
+	{% include "footer.html.twig" %}
+{% endblock %}

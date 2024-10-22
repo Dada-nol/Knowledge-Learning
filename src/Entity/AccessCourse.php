@@ -20,7 +20,7 @@ class AccessCourse
     private ?Course $course = null;
 
     #[ORM\Column]
-    private ?bool $isAvailable = null;
+    private ?bool $isAvailable = false;
 
     public function getId(): ?int
     {

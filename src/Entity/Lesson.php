@@ -23,7 +23,7 @@ class Lesson
     #[ORM\JoinColumn(nullable: false)]
     private ?Cursus $cursus = null;
 
-    #[ORM\OneToOne(targetEntity: Course::class, mappedBy: "lesson", cascade: ["persist", "remove"])]
+    #[ORM\OneToMany(targetEntity: Course::class, mappedBy: "lesson", cascade: ["persist", "remove"])]
     private $course;
 
 
@@ -82,5 +82,10 @@ class Lesson
         $this->cursus = $cursus;
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getName();
     }
 }

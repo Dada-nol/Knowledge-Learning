@@ -22,7 +22,7 @@ class Course
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(cascade: ['persist', 'remove'], inversedBy: 'course')]
     private ?Lesson $lesson = null;
 
     /**
@@ -41,12 +41,12 @@ class Course
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setName(string $title): static
+    public function setTitle(string $title): static
     {
         $this->title = $title;
 
@@ -105,5 +105,10 @@ class Course
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello
+{% endblock %}
+
+{% block body %}
+
+	{% include "header.html.twig" %}
+	<h1>Vous devez acheter la leçon ou le cursus correspondant pour pouvoir lire ce cours</h1>
+	<a href="{{path('app_home')}}">
+		<button>Retour à l'accueil</button>
+	</a>
+
+	{% include "footer.html.twig" %}
+{% endblock %}

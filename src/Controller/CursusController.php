@@ -52,14 +52,15 @@ class CursusController extends AbstractController
     public function oneLesson(EntityManagerInterface $em, int $id, AuthorizationCheckerInterface $authChecker): Response
     {
         $lesson = $em->getRepository(Lesson::class)->find($id);
-        $course = $lesson->getCourse();
+        $courses = $lesson->getCourse();
 
-        if (!$authChecker->isGranted('CAN_ACCESS', $course)) {
-            // Redirige vers une page d'erreur ou de connexion
-            return $this->redirectToRoute('app_home');
+        foreach ($courses as $course) {
+            if (!$authChecker->isGranted('CAN_ACCESS', $course)) {
+                return $this->redirectToRoute('access_course_dinied');
+            }
         }
 
-        return $this->render('cursus/oneLesson.html.twig', [
+        return $this->render('cursus/course.html.twig', [
             'lesson' => $lesson,
         ]);
     }
