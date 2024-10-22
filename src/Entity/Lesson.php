@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\LessonRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
@@ -25,6 +27,17 @@ class Lesson
 
     #[ORM\OneToMany(targetEntity: Course::class, mappedBy: "lesson", cascade: ["persist", "remove"])]
     private $course;
+
+    /**
+     * @var Collection<int, Certificate>
+     */
+    #[ORM\OneToMany(targetEntity: Certificate::class, mappedBy: 'lesson')]
+    private Collection $certificates;
+
+    public function __construct()
+    {
+        $this->certificates = new ArrayCollection();
+    }
 
 
     public function getCourse()
@@ -87,5 +100,35 @@ class Lesson
     public function __toString(): string
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection<int, Certificate>
+     */
+    public function getCertificates(): Collection
+    {
+        return $this->certificates;
+    }
+
+    public function addCertificate(Certificate $certificate): static
+    {
+        if (!$this->certificates->contains($certificate)) {
+            $this->certificates->add($certificate);
+            $certificate->setLesson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCertificate(Certificate $certificate): static
+    {
+        if ($this->certificates->removeElement($certificate)) {
+            // set the owning side to null (unless already changed)
+            if ($certificate->getLesson() === $this) {
+                $certificate->setLesson(null);
+            }
+        }
+
+        return $this;
     }
 }

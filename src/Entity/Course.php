@@ -31,6 +31,7 @@ class Course
     #[ORM\OneToMany(targetEntity: AccessCourse::class, mappedBy: 'course')]
     private Collection $accessCourse;
 
+
     public function __construct()
     {
         $this->accessCourse = new ArrayCollection();
@@ -115,4 +116,5 @@ class Course
     {
         return $this->getTitle();
     }
+
 }

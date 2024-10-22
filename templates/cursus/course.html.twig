@@ -13,6 +13,20 @@
 			<h2>{{course.title}}</h2>
 			<p>{{course.content}}</p>
 
+			{% if lesson.certificates == false %}
+
+				<form action="{{path('app_lesson_completed', {'id': lesson.id})}}" method="POST">
+					<button type='submit' class='btn-danger'>Terminer le cours</button>
+				</form>
+			{% else %}
+				<br>
+				<p>
+					<b>Ce cours est complété</b>
+				</p>
+				<a href="{{path('app_home')}}">
+					<button class'btn-danger'>Retour à l'accueil</button>
+				</a>
+			{% endif %}
 		{% endfor %}
 	{% else %}
 		<p>Ce cours n'est pas disponible pour le moment ou est en cours de préparation</p>
