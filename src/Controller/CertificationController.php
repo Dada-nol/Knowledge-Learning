@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Certificate;
 use App\Entity\Cursus;
+use App\Entity\Lesson;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -13,34 +14,36 @@ use Symfony\Component\Routing\Attribute\Route;
 class CertificationController extends AbstractController
 {
 
-  #[Route('/certifications', name: 'app_certification')]
-  public function certification(): Response
+  #[Route('/certificate', name: 'app_certification')]
+  public function certification(EntityManagerInterface $em, Security $security): Response
   {
-    return $this->render('certification/index.htlm.twig');
+    $user = $security->getUser();
+    $certificates = $em->getRepository(Certificate::class)->findBy(['user' => $user]);
+
+    return $this->render('certification/index.html.twig', ['certificates' => $certificates]);
   }
 
-  #[Route('/certification/cursus/{id}', name: 'app_certified')]
+  #[Route('/certification/lesson/{id}', name: 'app_certified')]
   public function isCompleted(EntityManagerInterface $em, Security $security, int $id): Response
   {
     $user = $security->getUser();
-    $cursus = $em->getRepository(Cursus::class)->find($id);
-    $lessons = $cursus->getLessons();
+    $lesson = $em->getRepository(Lesson::class)->find($id);
+    $cursus = $lesson->getCursus();
 
-    foreach ($lessons as $lesson) {
+    $certificate = $em->getRepository(Certificate::class)->findOneBy(['user' => $user, 'lesson' => $lesson]);
 
-      $certificate = $em->getRepository(Certificate::class)->findOneBy(['user' => $user, 'lesson' => $lesson]);
-
-      if (!$certificate) {
-        $certificate = new Certificate();
-        $certificate->setUser($user);
-        $certificate->setLesson($lesson);
-        $certificate->setCertified(true);
-        $em->persist($certificate);
-      }
+    if (!$certificate) {
+      $certificate = new Certificate();
+      $certificate->setUser($user);
+      $certificate->setLesson($lesson);
+      $certificate->setCertified(true);
+      $em->persist($certificate);
     }
 
     $em->flush();
 
+
+    $lessons = $cursus->getLessons();
 
     $allLessonsCertified = true;
     foreach ($lessons as $lesson) {

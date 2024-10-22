@@ -6,9 +6,7 @@ use App\Entity\Certificate;
 use App\Entity\Cursus;
 use App\Entity\Lesson;
 use App\Entity\Theme;
-use App\Form\CursusType;
 use Doctrine\ORM\EntityManagerInterface;
-use Random\Engine\Secure;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,7 +77,6 @@ class CursusController extends AbstractController
     {
         $user = $security->getUser();
         $lesson = $em->getRepository(Lesson::class)->find($id);
-        $cursus = $lesson->getCursus();
         $courses = $lesson->getCourse();
         $isCertified = $em->getRepository(Certificate::class)->findOneBy(['user' => $user, 'lesson' => $lesson]);
 
@@ -92,7 +89,6 @@ class CursusController extends AbstractController
         return $this->render('cursus/course.html.twig', [
             'lesson' => $lesson,
             'isCertified' => $isCertified,
-            'cursus' => $cursus
         ]);
     }
 }

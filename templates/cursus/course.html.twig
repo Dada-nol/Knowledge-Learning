@@ -15,7 +15,7 @@
 
 			{% if not isCertified %}
 
-				<form action="{{path('app_certified', {'id': cursus.id})}}" method="POST">
+				<form action="{{path('app_certified', {'id': lesson.id})}}" method="POST">
 					<button type='submit' class='btn-danger'>Terminer le cours</button>
 				</form>
 			{% else %}
