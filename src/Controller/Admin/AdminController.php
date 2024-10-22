@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\AccessCourse;
+use App\Entity\Certificate;
 use App\Entity\Course;
 use App\Entity\Cursus;
 use App\Entity\Lesson;
@@ -55,6 +56,7 @@ class AdminController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Lessons', 'fas fa-chalkboard-teacher', Lesson::class);
         yield MenuItem::linkToCrud('Courses', 'fas ', Course::class);
         yield MenuItem::linkToCrud('AccessCourse', 'fas ', AccessCourse::class);
+        yield MenuItem::linkToCrud('Certificates', 'fas ', Certificate::class);
         yield MenuItem::linkToRoute('Retour au site', 'fas fa-arrow-left', 'app_home');
     }
 }

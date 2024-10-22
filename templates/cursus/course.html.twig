@@ -13,9 +13,9 @@
 			<h2>{{course.title}}</h2>
 			<p>{{course.content}}</p>
 
-			{% if lesson.certificates == false %}
+			{% if not isCertified %}
 
-				<form action="{{path('app_lesson_completed', {'id': lesson.id})}}" method="POST">
+				<form action="{{path('app_certified', {'id': cursus.id})}}" method="POST">
 					<button type='submit' class='btn-danger'>Terminer le cours</button>
 				</form>
 			{% else %}

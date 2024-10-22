@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\AccessCourse;
 use App\Entity\Certificate;
-use App\Entity\Course;
-use App\Entity\Lesson;
+use App\Entity\Cursus;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
@@ -21,19 +19,55 @@ class CertificationController extends AbstractController
     return $this->render('certification/index.htlm.twig');
   }
 
-  #[Route('/certification/lesson/{id}', name: 'app_lesson_completed')]
+  #[Route('/certification/cursus/{id}', name: 'app_certified')]
   public function isCompleted(EntityManagerInterface $em, Security $security, int $id): Response
   {
     $user = $security->getUser();
-    $lesson = $em->getRepository(Lesson::class)->find($id);
-    $certificate = $em->getRepository(Certificate::class)->findOneBy(['user' => $user, 'course' => $lesson]);
+    $cursus = $em->getRepository(Cursus::class)->find($id);
+    $lessons = $cursus->getLessons();
 
-    if (!$certificate) {
-      $certificate = new Certificate();
-      $certificate->setUser($user);
-      $certificate->setLesson($lesson);
-      $certificate->setCertified(true);
-      $em->persist($certificate);
+    foreach ($lessons as $lesson) {
+
+      $certificate = $em->getRepository(Certificate::class)->findOneBy(['user' => $user, 'lesson' => $lesson]);
+
+      if (!$certificate) {
+        $certificate = new Certificate();
+        $certificate->setUser($user);
+        $certificate->setLesson($lesson);
+        $certificate->setCertified(true);
+        $em->persist($certificate);
+      }
+    }
+
+    $em->flush();
+
+
+    $allLessonsCertified = true;
+    foreach ($lessons as $lesson) {
+      $certificate = $em->getRepository(Certificate::class)->findOneBy([
+        'user' => $user,
+        'lesson' => $lesson,
+      ]);
+
+      if (!$certificate || !$certificate->isCertified()) {
+        $allLessonsCertified = false;
+        break;
+      }
+    }
+
+    if ($allLessonsCertified) {
+      $certificateCursus = $em->getRepository(Certificate::class)->findOneBy([
+        'user' => $user,
+        'cursus' => $cursus,
+      ]);
+
+      if (!$certificateCursus) {
+        $certificateCursus = new Certificate();
+        $certificateCursus->setUser($user);
+        $certificateCursus->setCursus($cursus);
+        $certificateCursus->setCertified(true);
+        $em->persist($certificateCursus);
+      }
     }
 
     $em->flush();

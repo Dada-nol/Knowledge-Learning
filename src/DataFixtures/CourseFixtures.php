@@ -88,7 +88,7 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
 
 
     $course12 = new Course();
-    $course12->setTitle('Leçon n°2 : Harmoniser un repas à quatre plats');
+    $course12->setTitle('Harmoniser un repas à quatre plats');
     $course12->setContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.');
     $course12->setLesson($this->getReference(LessonFixtures::LESSON_DRESSAGE_n°2_REFERENCE));
     $manager->persist($course12);
