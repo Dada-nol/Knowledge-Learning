@@ -96,16 +96,13 @@
                                 <section>
                                         <ul class="phpdocumentor-breadcrumbs">
             <li class="phpdocumentor-breadcrumb"><a href="namespaces/app.html">App</a></li>
-            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-datafixtures.html">DataFixtures</a></li>
+            <li class="phpdocumentor-breadcrumb"><a href="namespaces/app-service.html">Service</a></li>
     </ul>
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    CourseFixtures
+    StripeService
 
-        <span class="phpdocumentor-element__extends">
-        extends <abbr title="\Doctrine\Bundle\FixturesBundle\Fixture">Fixture</abbr>
-    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -114,9 +111,6 @@
                             </ul>
         </div>
     
-            <span class="phpdocumentor-element__implements">
-            implements
-                            <abbr title="\Doctrine\Common\DataFixtures\DependentFixtureInterface">DependentFixtureInterface</abbr>                    </span>
     
     </h2>
 
@@ -126,17 +120,15 @@
 </div>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DataFixtures/CourseFixtures.php"><a href="files/src-datafixtures-coursefixtures.html"><abbr title="src/DataFixtures/CourseFixtures.php">CourseFixtures.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/StripeService.php"><a href="files/src-service-stripeservice.html"><abbr title="src/Service/StripeService.php">StripeService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">14</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">Fixture class responsible for loading sample Course data into the database.</p>
+            <p class="phpdocumentor-summary">Service StripeService : Gère les interactions avec l&#039;API Stripe pour créer des sessions de paiement.</p>
 
 
-    <section class="phpdocumentor-description"><p>Implements DependentFixtureInterface to ensure LessonFixtures is loaded first.</p>
-</section>
 
 
 
@@ -146,45 +138,50 @@
 
 <h3 id="toc">
     Table of Contents
-    <a href="classes/App-DataFixtures-CourseFixtures.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-Service-StripeService.html#toc" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h3>
 
 
 
-    <h4 id="toc-interfaces">
-        Interfaces
-        <a href="classes/App-DataFixtures-CourseFixtures.html#toc-interfaces" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <dl class="phpdocumentor-table-of-contents">
-                    <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\Doctrine\Common\DataFixtures\DependentFixtureInterface">DependentFixtureInterface</abbr></dt>    </dl>
 
 
 
 
 
 
+<h4 id="toc-properties">
+    Properties
+    <a href="classes/App-Service-StripeService.html#toc-properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+</h4>
+<dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a class="" href="classes/App-Service-StripeService.html#property_stripeApiKey">$stripeApiKey</a>
+    <span>
+                        &nbsp;: string            </span>
+</dt>
+
+    </dl>
 
 <h4 id="toc-methods">
     Methods
-    <a href="classes/App-DataFixtures-CourseFixtures.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
+    <a href="classes/App-Service-StripeService.html#toc-methods" class="headerlink"><i class="fas fa-link"></i></a>
 
 </h4>
 <dl class="phpdocumentor-table-of-contents">
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DataFixtures-CourseFixtures.html#method_getDependencies">getDependencies()</a>
-    <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
-</dt>
-<dd>Returns an array of fixture dependencies.</dd>
-
-            <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a class="" href="classes/App-DataFixtures-CourseFixtures.html#method_load">load()</a>
+    <a class="" href="classes/App-Service-StripeService.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Loads a set of predefined Course entities into the database.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a class="" href="classes/App-Service-StripeService.html#method_createCheckoutSession">createCheckoutSession()</a>
+    <span>
+                                &nbsp;: <abbr title="\Stripe\Checkout\Session">Session</abbr>    </span>
+</dt>
+<dd>Crée une session de paiement Stripe Checkout.</dd>
 
     </dl>
 
@@ -193,11 +190,54 @@
         
 
         
+    <section class="phpdocumentor-properties">
+        <h3 class="phpdocumentor-elements__header" id="properties">
+            Properties
+            <a href="classes/App-Service-StripeService.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+
+        </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_stripeApiKey">
+        $stripeApiKey
+        <a href="classes/App-Service-StripeService.html#property_stripeApiKey" class="headerlink"><i class="fas fa-link"></i></a>
+
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/StripeService.php"><a href="files/src-service-stripeservice.html"><abbr title="src/Service/StripeService.php">StripeService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">13</span>
+
+    </aside>
+
+    
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type">string</span>
+    <span class="phpdocumentor-signature__name">$stripeApiKey</span>
+    </code>
+
+    
+    
+    
+
+    
+
+</article>
+            </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/App-DataFixtures-CourseFixtures.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/App-Service-StripeService.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
 
         </h3>
                     <article
@@ -206,83 +246,35 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getDependencies">
-        getDependencies()
-        <a href="classes/App-DataFixtures-CourseFixtures.html#method_getDependencies" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method___construct">
+        __construct()
+        <a href="classes/App-Service-StripeService.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
 
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DataFixtures/CourseFixtures.php"><a href="files/src-datafixtures-coursefixtures.html"><abbr title="src/DataFixtures/CourseFixtures.php">CourseFixtures.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/StripeService.php"><a href="files/src-service-stripeservice.html"><abbr title="src/Service/StripeService.php">StripeService.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">115</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Returns an array of fixture dependencies.</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getDependencies</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stripeApiKey</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     <div class="phpdocumentor-label-line">
         </div>
     
     
-    
-    
-
-    
-
-            <section>
-        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-        <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
-                    &mdash;
-                <section class="phpdocumentor-description"><p>The array of dependent fixture classes.</p>
-</section>
-
-            </section>
-
-</article>
-                    <article
-        class="phpdocumentor-element
-            -method
-            -public
-                                                        "
->
-    <h4 class="phpdocumentor-element__name" id="method_load">
-        load()
-        <a href="classes/App-DataFixtures-CourseFixtures.html#method_load" class="headerlink"><i class="fas fa-link"></i></a>
-
-    </h4>
-    <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/DataFixtures/CourseFixtures.php"><a href="files/src-datafixtures-coursefixtures.html"><abbr title="src/DataFixtures/CourseFixtures.php">CourseFixtures.php</abbr></a></abbr>
-    :
-    <span class="phpdocumentor-element-found-in__line">23</span>
-
-    </aside>
-
-        <p class="phpdocumentor-summary">Loads a set of predefined Course entities into the database.</p>
-
-    <code class="phpdocumentor-code phpdocumentor-signature ">
-    <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">load</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\Doctrine\Persistence\ObjectManager">ObjectManager</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$manager</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
-
-    <div class="phpdocumentor-label-line">
-        </div>
-    
-        <section class="phpdocumentor-description"><p>Each Course is linked to a specific Lesson, which must be already loaded by LessonFixtures.</p>
-</section>
-
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$manager</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\Doctrine\Persistence\ObjectManager">ObjectManager</abbr></span>
+                <span class="phpdocumentor-signature__argument__name">$stripeApiKey</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The Doctrine object manager used for persisting entities.</p>
-</section>
-
+                
             </dd>
             </dl>
 
@@ -292,13 +284,86 @@
 
     
 </article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_createCheckoutSession">
+        createCheckoutSession()
+        <a href="classes/App-Service-StripeService.html#method_createCheckoutSession" class="headerlink"><i class="fas fa-link"></i></a>
+
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Service/StripeService.php"><a href="files/src-service-stripeservice.html"><abbr title="src/Service/StripeService.php">StripeService.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">29</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Crée une session de paiement Stripe Checkout.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">createCheckoutSession</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$lineItems</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$successUrl</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$cancelUrl</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\Stripe\Checkout\Session">Session</abbr></span></code>
+
+    <div class="phpdocumentor-label-line">
+        </div>
+    
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$lineItems</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>Les éléments du panier à facturer dans la session de paiement.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$successUrl</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>L'URL vers laquelle l'utilisateur sera redirigé en cas de paiement réussi.</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$cancelUrl</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>L'URL vers laquelle l'utilisateur sera redirigé en cas d'annulation du paiement.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+    
+
+            <section>
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+        <span class="phpdocumentor-signature__response_type"><abbr title="\Stripe\Checkout\Session">Session</abbr></span>
+                    &mdash;
+                <section class="phpdocumentor-description"><p>La session de paiement Stripe créée.</p>
+</section>
+
+            </section>
+
+</article>
             </section>
 
         <div class="phpdocumentor-modal" id="source-view">
     <div class="phpdocumentor-modal-bg" data-exit-button></div>
     <div class="phpdocumentor-modal-container">
         <div class="phpdocumentor-modal-content">
-            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/DataFixtures/CourseFixtures.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
+            <pre style="max-height: 500px; overflow-y: scroll" data-src="files/src/Service/StripeService.php.txt" class="language-php line-numbers linkable-line-numbers"></pre>
         </div>
         <button data-exit-button class="phpdocumentor-modal__close">&times;</button>
     </div>
@@ -397,16 +462,23 @@
             <li class="phpdocumentor-on-this-page-section__title">Table Of Contents</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                                                                <li><a href="classes/App-DataFixtures-CourseFixtures.html#toc-methods">Methods</a></li>
+                                                            <li><a href="classes/App-Service-StripeService.html#toc-properties">Properties</a></li>
+                                                            <li><a href="classes/App-Service-StripeService.html#toc-methods">Methods</a></li>
                                     </ul>
             </li>
             
+                            <li class="phpdocumentor-on-this-page-section__title">Properties</li>
+                <li>
+                    <ul class="phpdocumentor-list -clean">
+                                                    <li class=""><a href="classes/App-Service-StripeService.html#property_stripeApiKey">$stripeApiKey</a></li>
+                                            </ul>
+                </li>
             
                         <li class="phpdocumentor-on-this-page-section__title">Methods</li>
             <li>
                 <ul class="phpdocumentor-list -clean">
-                                            <li class=""><a href="classes/App-DataFixtures-CourseFixtures.html#method_getDependencies">getDependencies()</a></li>
-                                            <li class=""><a href="classes/App-DataFixtures-CourseFixtures.html#method_load">load()</a></li>
+                                            <li class=""><a href="classes/App-Service-StripeService.html#method___construct">__construct()</a></li>
+                                            <li class=""><a href="classes/App-Service-StripeService.html#method_createCheckoutSession">createCheckoutSession()</a></li>
                                     </ul>
             </li>
                     </ul>
@@ -426,7 +498,7 @@
     </section>
 </section>
         </div>
-        <a href="classes/App-DataFixtures-CourseFixtures.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/App-Service-StripeService.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

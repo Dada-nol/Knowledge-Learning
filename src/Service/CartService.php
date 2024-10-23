@@ -9,6 +9,10 @@ use App\Entity\Lesson;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 
+
+/**
+ * Service CartService : Gère les opérations liées au panier d'achat, comme l'ajout de leçons ou de cursus au panier, et la gestion des éléments du panier.
+ */
 class CartService
 {
   private $em;
@@ -20,6 +24,13 @@ class CartService
     $this->security = $security;
   }
 
+  /**
+   * Récupère les items dans le panier de l'utilisateur en fonction d'une leçon donnée.
+   *
+   * @param Lesson $lesson La leçon à chercher dans le panier.
+   * @return CartItem[] Les items du panier correspondant à la leçon.
+   * @throws \Exception Si l'utilisateur n'est pas connecté.
+   */
   public function getCartItems(Lesson $lesson)
   {
 
@@ -34,6 +45,13 @@ class CartService
     return $this->em->getRepository(CartItem::class)->findBy(['cart' => $cart, 'lesson' => $lesson]);
   }
 
+
+  /**
+   * Ajoute une leçon au panier de l'utilisateur connecté.
+   *
+   * @param Lesson $lesson La leçon à ajouter au panier.
+   * @throws \Exception Si l'utilisateur n'est pas connecté.
+   */
   public function addLessonToCart(Lesson $lesson)
   {
 
@@ -67,6 +85,13 @@ class CartService
     $this->em->flush();
   }
 
+
+  /**
+   * Ajoute un cursus entier au panier de l'utilisateur connecté.
+   *
+   * @param Cursus $cursus Le cursus à ajouter au panier.
+   * @throws \Exception Si l'utilisateur n'est pas connecté.
+   */
   public function addCursusToCart(Cursus $cursus)
   {
 
@@ -100,20 +125,15 @@ class CartService
     $this->em->flush();
   }
 
+
+  /**
+   * Supprime un item du panier.
+   *
+   * @param CartItem $cartItem L'item du panier à supprimer.
+   */
   public function removeFromCart(CartItem $cartItem)
   {
     $this->em->remove($cartItem);
     $this->em->flush();
   }
-
-  /* public function clearCart()
-  {
-    $cartItems = $this->getCartItems();
-
-    foreach ($cartItems as $item) {
-      $this->em->remove($item);
-    }
-
-    $this->em->flush();
-  } */
 }
