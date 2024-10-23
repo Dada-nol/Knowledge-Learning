@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Certificate;
-use App\Entity\Cursus;
 use App\Entity\Lesson;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +12,14 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class CertificationController extends AbstractController
 {
-
+  /**
+   * Displays the list of certificates for the authenticated user.
+   *
+   * @Route('/certificate', name: 'app_certification')
+   * @param EntityManagerInterface $em The entity manager for database operations.
+   * @param Security $security The security service to get the current user.
+   * @return Response The response containing the rendered certificates page.
+   */
   #[Route('/certificate', name: 'app_certification')]
   public function certification(EntityManagerInterface $em, Security $security): Response
   {
@@ -23,6 +29,15 @@ class CertificationController extends AbstractController
     return $this->render('certification/index.html.twig', ['certificates' => $certificates]);
   }
 
+  /**
+   * Marks a lesson as completed and certifies it for the user.
+   *
+   * @Route('/certification/lesson/{id}', name: 'app_certified')
+   * @param EntityManagerInterface $em The entity manager for database operations.
+   * @param Security $security The security service to get the current user.
+   * @param int $id The ID of the lesson to certify.
+   * @return Response A redirect response to the home page.
+   */
   #[Route('/certification/lesson/{id}', name: 'app_certified')]
   public function isCompleted(EntityManagerInterface $em, Security $security, int $id): Response
   {
@@ -41,7 +56,6 @@ class CertificationController extends AbstractController
     }
 
     $em->flush();
-
 
     $lessons = $cursus->getLessons();
 

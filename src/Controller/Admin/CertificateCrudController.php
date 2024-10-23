@@ -20,6 +20,7 @@ class CertificateCrudController extends AbstractCrudController
     return [
       AssociationField::new('user'),
       AssociationField::new('lesson'),
+      AssociationField::new('cursus'),
       BooleanField::new('isCertified'),
     ];
   }

@@ -16,14 +16,31 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\SecurityRequestAttributes;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+
+/**
+ * UserAuthAuthenticator is responsible for authenticating users during the login process.
+ * It extends the AbstractLoginFormAuthenticator and provides logic for handling login form authentication.
+ */
 class UserAuthAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;
 
     public const LOGIN_ROUTE = 'app_login';
 
+    /**
+     * Constructor for injecting the UrlGeneratorInterface.
+     *
+     * @param UrlGeneratorInterface $urlGenerator
+     */
     public function __construct(private UrlGeneratorInterface $urlGenerator) {}
 
+    /**
+     * This method is responsible for creating and returning a Passport object which holds user credentials.
+     * The Passport object is used by Symfony's security system for authenticating the user.
+     *
+     * @param Request $request The HTTP request containing login information (email, password, csrf token).
+     * @return Passport The Passport object containing user credentials and security badges (CSRF, RememberMe).
+     */
     public function authenticate(Request $request): Passport
     {
         $email = $request->getPayload()->getString('email');
@@ -40,14 +57,21 @@ class UserAuthAuthenticator extends AbstractLoginFormAuthenticator
         );
     }
 
+    /**
+     * Handles actions on successful authentication. If a target path is available (stored previously), the user is
+     * redirected to that path, otherwise, they are redirected to the homepage.
+     *
+     * @param Request $request The HTTP request object.
+     * @param TokenInterface $token The security token for the authenticated user.
+     * @param string $firewallName The name of the firewall used for this authentication process.
+     * @return Response|null The response object for redirection.
+     */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
 
-        // For example:
-        // return new RedirectResponse($this->urlGenerator->generate('some_route'));
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }
 

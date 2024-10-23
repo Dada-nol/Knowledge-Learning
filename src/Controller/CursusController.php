@@ -15,6 +15,13 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class CursusController extends AbstractController
 {
+    /**
+     * Displays all themes.
+     *
+     * @Route('/theme', name: 'app_theme')
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     * @return Response The response containing the rendered themes page.
+     */
     #[Route('/theme', name: 'app_theme')]
     public function allTheme(EntityManagerInterface $em): Response
     {
@@ -25,7 +32,15 @@ class CursusController extends AbstractController
         ]);
     }
 
-
+    /**
+     * Displays all cursus associated with a specific theme.
+     *
+     * @Route('/theme/{id}/cursus', name: 'app_cursus')
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     * @param int $id The ID of the theme.
+     * @param Security $security The security service to get the current user.
+     * @return Response The response containing the rendered cursus page.
+     */
     #[Route('/theme/{id}/cursus', name: 'app_cursus')]
     public function allCursus(EntityManagerInterface $em, int $id, Security $security): Response
     {
@@ -49,7 +64,15 @@ class CursusController extends AbstractController
         ]);
     }
 
-
+    /**
+     * Displays all lessons associated with a specific cursus.
+     *
+     * @Route('/cursus/{id}/lesson', name: 'app_lesson')
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     * @param int $id The ID of the cursus.
+     * @param Security $security The security service to get the current user.
+     * @return Response The response containing the rendered lessons page.
+     */
     #[Route('/cursus/{id}/lesson', name: 'app_lesson')]
     public function allLesson(EntityManagerInterface $em, int $id, Security $security): Response
     {
@@ -72,6 +95,16 @@ class CursusController extends AbstractController
         ]);
     }
 
+    /**
+     * Displays a specific lesson and its associated courses.
+     *
+     * @Route('/lesson/{id}/course', name: 'app_course')
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     * @param int $id The ID of the lesson.
+     * @param AuthorizationCheckerInterface $authChecker The authorization checker service.
+     * @param Security $security The security service to get the current user.
+     * @return Response The response containing the rendered course page.
+     */
     #[Route('/lesson/{id}/course', name: 'app_course')]
     public function oneLesson(EntityManagerInterface $em, int $id, AuthorizationCheckerInterface $authChecker, Security $security): Response
     {

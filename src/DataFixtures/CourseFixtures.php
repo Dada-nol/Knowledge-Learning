@@ -7,9 +7,19 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Fixture class responsible for loading sample Course data into the database.
+ * Implements DependentFixtureInterface to ensure LessonFixtures is loaded first.
+ */
 class CourseFixtures extends Fixture implements DependentFixtureInterface
 {
 
+  /**
+   * Loads a set of predefined Course entities into the database.
+   * Each Course is linked to a specific Lesson, which must be already loaded by LessonFixtures.
+   * 
+   * @param ObjectManager $manager The Doctrine object manager used for persisting entities.
+   */
   public function load(ObjectManager $manager)
   {
 
@@ -97,6 +107,11 @@ class CourseFixtures extends Fixture implements DependentFixtureInterface
     $manager->flush();
   }
 
+  /**
+   * Returns an array of fixture dependencies.
+   * 
+   * @return array The array of dependent fixture classes.
+   */
   public function getDependencies(): array
   {
     return [

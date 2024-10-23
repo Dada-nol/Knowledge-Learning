@@ -34,10 +34,14 @@
 			<button>Voir</button>
 		</a>
 
-		<h2>Voir mes certifications</h2>
-		<a href="{{path('app_certification')}}">
-			<button>Voir</button>
-		</a>
+		{% if is_granted('ROLE_CLIENT')%}
+
+			<h2>Voir mes certifications</h2>
+			<a href="{{path('app_certification')}}">
+				<button>Voir</button>
+			</a>
+
+		{% endif %}
 	</main>
 	{% include "footer.html.twig" %}
 {% endblock %}

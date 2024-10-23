@@ -15,6 +15,15 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class PaymentController extends AbstractController
 {
+  /**
+   * Initiates the checkout process by creating a Stripe Checkout session.
+   *
+   * @Route('/checkout', name: 'checkout')
+   * @param EntityManagerInterface $entityManager The entity manager.
+   * @param Security $security The security service.
+   * @param StripeService $stripeService The Stripe service.
+   * @return Response Redirects to the Stripe Checkout URL.
+   */
   #[Route('/checkout', name: 'checkout')]
   public function checkout(EntityManagerInterface $entityManager, Security $security, StripeService $stripeService): Response
   {
@@ -26,7 +35,6 @@ class PaymentController extends AbstractController
     } else {
       $userName = 'Utilisateur inconnu';
     }
-
 
     $lineItems = [[
       'price_data' => [
@@ -45,18 +53,23 @@ class PaymentController extends AbstractController
       $this->generateUrl('payment_cancel', [], UrlGeneratorInterface::ABSOLUTE_URL)
     );
 
-
     return $this->redirect($checkoutSession->url, 201);
   }
 
+  /**
+   * Handles the payment success logic after successful checkout.
+   *
+   * @Route('/payment/success', name: 'payment_success')
+   * @param Security $security The security service.
+   * @param EntityManagerInterface $entityManager The entity manager.
+   * @return Response Renders the payment success template.
+   */
   #[Route('/payment/success', name: 'payment_success')]
   public function paymentSuccess(Security $security, EntityManagerInterface $entityManager): Response
   {
     $user = $security->getUser();
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
     $cartItems = $cart->getCartItems();
-
-    $entityManager->flush();
 
     foreach ($cartItems as $item) {
       $lesson = $item->getLessons();
@@ -127,7 +140,12 @@ class PaymentController extends AbstractController
     return $this->render('payment/success.html.twig');
   }
 
-
+  /**
+   * Handles the payment cancellation logic.
+   *
+   * @Route('/payment/cancel', name: 'payment_cancel')
+   * @return Response Renders the payment cancellation template.
+   */
   #[Route('/payment/cancel', name: 'payment_cancel')]
   public function paymentCancel(): Response
   {

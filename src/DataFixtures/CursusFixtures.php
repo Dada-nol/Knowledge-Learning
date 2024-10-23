@@ -7,6 +7,10 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Fixture class for loading sample Cursus entities into the database.
+ * Implements DependentFixtureInterface to ensure ThemeFixtures are loaded first.
+ */
 class CursusFixtures extends Fixture implements DependentFixtureInterface
 {
 
@@ -17,6 +21,12 @@ class CursusFixtures extends Fixture implements DependentFixtureInterface
   public const CURSUS_CUISINE_REFERENCE = 'cursus-cuisine';
   public const CURSUS_DRESSAGE_REFERENCE = 'cursus-dressage_culinaire';
 
+  /**
+   * Loads a set of predefined Cursus entities into the database.
+   * Each Cursus is associated with a specific theme, which is loaded by ThemeFixtures.
+   * 
+   * @param ObjectManager $manager The Doctrine object manager used for persisting entities.
+   */
   public function load(ObjectManager $manager): void
   {
     $cursus = new Cursus();
@@ -71,6 +81,11 @@ class CursusFixtures extends Fixture implements DependentFixtureInterface
     $manager->flush();
   }
 
+  /**
+   * Returns an array of fixture dependencies.
+   * 
+   * @return array The array of dependent fixture classes.
+   */
   public function getDependencies(): array
   {
     return [

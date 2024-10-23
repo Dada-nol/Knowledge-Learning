@@ -6,6 +6,9 @@ use App\Entity\Theme;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * Fixture class responsible for loading sample Theme data into the database.
+ */
 class ThemeFixtures extends Fixture
 {
   public const THEME_MUSIQUE_REFERENCE = 'theme-musique';
@@ -13,6 +16,11 @@ class ThemeFixtures extends Fixture
   public const THEME_JARDINAGE_REFERENCE = 'theme-jardinage';
   public const THEME_CUISINE_REFERENCE = 'theme-cuisine';
 
+  /**
+   * Loads a set of predefined Theme entities into the database.
+   * 
+   * @param ObjectManager $manager The Doctrine object manager used for persisting entities.
+   */
   public function load(ObjectManager $manager): void
   {
     $theme = new Theme();
