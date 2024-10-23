@@ -7,39 +7,72 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+/**
+ * Class Cart
+ *
+ * Represents a shopping cart associated with a user.
+ *
+ * @package App\Entity
+ */
 #[ORM\Entity(repositoryClass: CartRepository::class)]
 class Cart
 {
+    /**
+     * @var int|null The unique identifier for this cart.
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    /**
+     * @var User|null The user associated with this cart.
+     */
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user;
 
     /**
-     * @var Collection<int, CartItem>
+     * @var Collection<int, CartItem> The items in the cart.
      */
     #[ORM\OneToMany(targetEntity: CartItem::class, mappedBy: 'cart', orphanRemoval: true)]
     private Collection $cartItems;
 
+    /**
+     * Cart constructor.
+     * Initializes the cart items collection.
+     */
     public function __construct()
     {
         $this->cartItems = new ArrayCollection();
     }
 
+    /**
+     * Gets the ID of the cart.
+     *
+     * @return int|null The ID of the cart.
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * Gets the user associated with this cart.
+     *
+     * @return User|null The user associated with this cart.
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
+    /**
+     * Sets the user associated with this cart.
+     *
+     * @param User|null $user The user to associate with this cart.
+     * @return static Returns the current instance for method chaining.
+     */
     public function setUser(?User $user): static
     {
         $this->user = $user;
@@ -48,13 +81,21 @@ class Cart
     }
 
     /**
-     * @return Collection<int, CartItem>
+     * Gets the collection of cart items.
+     *
+     * @return Collection<int, CartItem> The items in the cart.
      */
     public function getCartItems(): Collection
     {
         return $this->cartItems;
     }
 
+    /**
+     * Adds a cart item to the cart.
+     *
+     * @param CartItem $cartItem The cart item to add.
+     * @return static Returns the current instance for method chaining.
+     */
     public function addCartItem(CartItem $cartItem): static
     {
         if (!$this->cartItems->contains($cartItem)) {
@@ -65,6 +106,12 @@ class Cart
         return $this;
     }
 
+    /**
+     * Removes a cart item from the cart.
+     *
+     * @param CartItem $cartItem The cart item to remove.
+     * @return static Returns the current instance for method chaining.
+     */
     public function removeCartItem(CartItem $cartItem): static
     {
         if ($this->cartItems->removeElement($cartItem)) {
@@ -77,6 +124,11 @@ class Cart
         return $this;
     }
 
+    /**
+     * Calculates the total price of the items in the cart.
+     *
+     * @return float The total price of the items in the cart.
+     */
     public function getTotal(): float
     {
         $total = 0;
