@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\LessonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class Lesson
@@ -15,8 +18,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  */
 #[ORM\Entity(repositoryClass: LessonRepository::class)]
+#[HasLifecycleCallbacks]
 class Lesson
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for this lesson.
      */

@@ -40,17 +40,22 @@ class CartController extends AbstractController
   {
     $user = $security->getUser();
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
-    $items = $cart->getCartItems();
 
-    $deleteForms = [];
-    if ($items) {
-      foreach ($items as $item) {
-        $deleteForms[$item->getId()] = $this->createFormBuilder()
-          ->setAction($this->generateUrl('deleteItem', ['id' => $item->getId()]))
-          ->setMethod('DELETE')
-          ->getForm()
-          ->createView();
+    if ($cart) {
+      $items = $cart->getCartItems();
+
+      $deleteForms = [];
+      if ($items) {
+        foreach ($items as $item) {
+          $deleteForms[$item->getId()] = $this->createFormBuilder()
+            ->setAction($this->generateUrl('deleteItem', ['id' => $item->getId()]))
+            ->setMethod('DELETE')
+            ->getForm()
+            ->createView();
+        }
       }
+    } else {
+      return $this->redirectToRoute('app_theme');
     }
 
     return $this->render('cart/index.html.twig', ['items' => $items, 'cart' => $cart, 'deleteForms' => $deleteForms]);

@@ -17,7 +17,6 @@ class RegistrationControllerTest extends WebTestCase
     {
         $this->client = static::createClient();
 
-        // Ensure we have a clean database
         $container = static::getContainer();
 
         /** @var EntityManager $em */
@@ -45,7 +44,7 @@ class RegistrationControllerTest extends WebTestCase
         ]);
 
         // Ensure the response redirects after submitting the form, the user exists, and is not verified
-        self::assertResponseRedirects('/');  //@TODO: set the appropriate path that the user is redirected to.
+        self::assertResponseRedirects('/');
         self::assertCount(1, $this->userRepository->findAll());
         self::assertFalse(($user = $this->userRepository->findAll()[0])->isVerified());
 

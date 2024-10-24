@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\CertificateRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class Certificate
@@ -13,8 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  */
 #[ORM\Entity(repositoryClass: CertificateRepository::class)]
+#[HasLifecycleCallbacks]
 class Certificate
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for this certificate.
      */

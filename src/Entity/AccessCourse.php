@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\UserCourseRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class AccessCourse
@@ -13,8 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  */
 #[ORM\Entity(repositoryClass: UserCourseRepository::class)]
+#[HasLifecycleCallbacks]
 class AccessCourse
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for this access course.
      */

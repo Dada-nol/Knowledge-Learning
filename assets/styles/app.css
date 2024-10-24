@@ -1,5 +1,9 @@
+body {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
 header {
-  border-bottom: solid 1px #384050;
+  border-bottom: double 25px #00497c;
 }
 
 nav {
@@ -13,6 +17,11 @@ nav {
   flex-direction: row;
   gap: 50px;
   margin-right: 20px;
+}
+
+.nav-logo {
+  width: 100px;
+  height: 80px;
 }
 
 li {
@@ -43,7 +52,7 @@ li {
 footer {
   display: flex;
   justify-content: center;
-  border-top: 1px #384050 solid;
+  border-top: 25px #00497c double;
 }
 
 h1 {

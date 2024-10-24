@@ -2,8 +2,11 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\CartItemRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class CartItem
@@ -13,8 +16,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  */
 #[ORM\Entity(repositoryClass: CartItemRepository::class)]
+#[HasLifecycleCallbacks]
 class CartItem
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for this cart item.
      */

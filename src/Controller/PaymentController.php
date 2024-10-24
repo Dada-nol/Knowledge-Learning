@@ -29,6 +29,7 @@ class PaymentController extends AbstractController
   {
     $user = $security->getUser();
     $cart = $entityManager->getRepository(Cart::class)->findOneBy(['user' => $user]);
+    $cartPrice = $cart->getTotal();
 
     if ($user instanceof User) {
       $userName = $user->getEmail();
@@ -42,7 +43,7 @@ class PaymentController extends AbstractController
         'product_data' => [
           'name' => 'Panier de' . ' ' . $userName,
         ],
-        'unit_amount' => 5000,
+        'unit_amount' => $cartPrice * 100,
       ],
       'quantity' => 1,
     ]];
