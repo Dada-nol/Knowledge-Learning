@@ -2,11 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class Course
@@ -15,9 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @package App\Entity
  */
+#[HasLifecycleCallbacks]
 #[ORM\Entity(repositoryClass: CourseRepository::class)]
 class Course
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for this course.
      */

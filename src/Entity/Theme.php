@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\Blameable;
+use App\Entity\Traits\Timestampable;
 use App\Repository\ThemeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * Class Theme
@@ -15,8 +18,12 @@ use Doctrine\ORM\Mapping as ORM;
  * @package App\Entity
  */
 #[ORM\Entity(repositoryClass: ThemeRepository::class)]
+#[HasLifecycleCallbacks]
+
 class Theme
 {
+    use Timestampable;
+
     /**
      * @var int|null The unique identifier for the theme.
      */
