@@ -40,8 +40,7 @@ class ResetPasswordControllerTest extends WebTestCase
         // Create a test user
         $user = (new User())
             ->setEmail('me@example.com')
-            ->setPassword('a-test-password-that-will-be-changed-later')
-        ;
+            ->setPassword('a-test-password-that-will-be-changed-later');
         $this->em->persist($user);
         $this->em->flush();
 
@@ -58,8 +57,8 @@ class ResetPasswordControllerTest extends WebTestCase
 
         // Ensure the reset password email was sent
         // Use either assertQueuedEmailCount() || assertEmailCount() depending on your mailer setup
-        // self::assertQueuedEmailCount(1);
-        self::assertEmailCount(1);
+        self::assertQueuedEmailCount(1);
+        // self::assertEmailCount(1);
 
         self::assertCount(1, $messages = $this->getMailerMessages());
 
