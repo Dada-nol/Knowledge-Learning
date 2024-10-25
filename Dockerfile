@@ -32,7 +32,8 @@ WORKDIR /var/www/
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Permissions
-RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data /var/www && \
+    chmod -R 755 /var/www
 
 # Créer les répertoires de cache et de logs et définir les permissions
 RUN mkdir -p var/cache var/log var/sessions && \
@@ -53,6 +54,8 @@ RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Exécuter les migrations de la base de données
 RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
+RUN tail -f /var/log/apache2/error.log
 
 ENTRYPOINT ["apache2-foreground"]
 
