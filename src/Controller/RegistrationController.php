@@ -70,7 +70,7 @@ class RegistrationController extends AbstractController
 
             $security->login($user, UserAuthAuthenticator::class, 'main');
 
-            return $this->redirect('/');
+            return $this->redirectToRoute('app_home');
         }
 
         return $this->render('Users/registration/register.html.twig', [
@@ -99,7 +99,7 @@ class RegistrationController extends AbstractController
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $translator->trans($exception->getReason(), [], 'VerifyEmailBundle'));
 
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_register');
         }
 
         $this->addFlash('success', 'Your email address has been verified.');

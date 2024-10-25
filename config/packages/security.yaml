@@ -18,10 +18,16 @@ security:
       lazy: true
       provider: app_user_provider
       custom_authenticator: App\Security\UserAuthAuthenticator
+
+      # Configuration pour les chemins de connexion (peut être nécessaire selon ta config d'authenticator)
+      form_login:
+        login_path: app_login
+        check_path: app_login
+
       logout:
         path: app_logout
-        # where to redirect after logout
-        # target: app_any_route
+
+      entry_point: form_login
 
       remember_me:
         secret: "%kernel.secret%"
