@@ -29,7 +29,7 @@ ENV APP_ENV=env
 COPY . /var/www/
 WORKDIR /var/www/
 
-RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
+RUN composer install 
 
 # Permissions
 RUN chown -R www-data:www-data /var/www && \
