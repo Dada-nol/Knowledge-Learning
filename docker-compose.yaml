@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Knowledge-Learning
+    ports:
+      - "8000:80"
+    volumes:
+
+    networks:
+      - dev
+
+networks:
+  dev:
+
+volumes:
+  db-data:
