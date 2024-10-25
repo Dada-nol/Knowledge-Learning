@@ -23,7 +23,7 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-ENV APP_ENV=prod
+ENV APP_ENV=env
 
 # Copier le code du projet
 COPY . /var/www/
@@ -54,8 +54,6 @@ RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Exécuter les migrations de la base de données
 RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-
-RUN tail -f /var/log/apache2/error.log
 
 ENTRYPOINT ["apache2-foreground"]
 
