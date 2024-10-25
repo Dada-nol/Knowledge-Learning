@@ -23,7 +23,7 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-ENV APP_ENV=prod
+ENV APP_ENV=dev
 
 # Copier le code du projet
 COPY . /var/www/
