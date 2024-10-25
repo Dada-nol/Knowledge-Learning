@@ -23,13 +23,13 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-ENV APP_ENV=env
+ENV APP_ENV=prod
 
 # Copier le code du projet
 COPY . /var/www/
-WORKDIR /var/www/
+WORKDIR /var/www/public
 
-RUN composer install 
+RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Permissions
 RUN chown -R www-data:www-data /var/www && \
@@ -43,14 +43,8 @@ RUN mkdir -p var/cache var/log var/sessions && \
 # Nettoyer le cache de Symfony
 RUN php bin/console cache:clear
 
-RUN php bin/console cache:clear
-
-
 # Instaurer un ServerName
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
-
-
-RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Exécuter les migrations de la base de données
 RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
