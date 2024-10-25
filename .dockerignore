@@ -30,3 +30,5 @@ Thumbs.db
 
 # Ignorer les fichiers de documentation
 /documentation
+
+/Procfile
