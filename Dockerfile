@@ -23,10 +23,6 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
-# Installer Node.js et Webpack Encore
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
-    apt-get install -y nodejs
-
 ENV APP_ENV=prod
 
 # Copier le code du projet
@@ -38,11 +34,19 @@ RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 # Permissions
 RUN chown -R www-data:www-data /var/www
 
+# Créer les répertoires de cache et de logs et définir les permissions
+RUN mkdir -p var/cache var/log var/sessions && \
+    chown -R www-data:www-data var/cache var/log var/sessions && \
+    chmod -R 775 var/cache var/log var/sessions
+
+# Nettoyer le cache de Symfony
+RUN php bin/console cache:clear
+
 RUN php bin/console cache:clear
 
 
-COPY apache.conf /etc/apache2/conf-available/servername.conf
-RUN a2enconf servername
+# Instaurer un ServerName
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
