@@ -27,7 +27,7 @@ ENV APP_ENV=prod
 
 # Copier le code du projet
 COPY . /var/www/
-WORKDIR /var/www/public
+WORKDIR /var/www/
 
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
