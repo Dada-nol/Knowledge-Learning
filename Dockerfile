@@ -34,10 +34,6 @@ RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 # Permissions
 RUN chown -R www-data:www-data /var/www
 
-COPY apache.conf /etc/apache2/conf-available/servername.conf
-RUN a2enconf servername
-
-
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Exécuter les migrations de la base de données
