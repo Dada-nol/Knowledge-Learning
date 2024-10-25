@@ -23,6 +23,10 @@ RUN curl -sSk https://getcomposer.org/installer | php -- --disable-tls && \
 RUN curl -sS https://get.symfony.com/cli/installer | bash && \
     mv /root/.symfony*/bin/symfony /usr/local/bin/symfony
 
+# Installer Node.js et Webpack Encore
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
 ENV APP_ENV=prod
 
 # Copier le code du projet
@@ -33,6 +37,10 @@ RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Permissions
 RUN chown -R www-data:www-data /var/www
+
+COPY apache.conf /etc/apache2/conf-available/servername.conf
+RUN a2enconf servername
+
 
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
