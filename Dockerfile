@@ -36,7 +36,11 @@ WORKDIR /var/www/
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
 
 # Permissions
+RUN chmod -R 775 var/cache var/log var/sessions
 RUN chown -R www-data:www-data /var/www
+
+RUN php bin/console cache:clear
+
 
 COPY apache.conf /etc/apache2/conf-available/servername.conf
 RUN a2enconf servername
