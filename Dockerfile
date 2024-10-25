@@ -44,13 +44,10 @@ RUN mkdir -p var/cache var/log var/sessions && \
 RUN php bin/console cache:clear
 
 # Instaurer un ServerName
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+# RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# Copier votre configuration Apache
-COPY apache.conf /etc/apache2/sites-available/000-default.conf
-
-# Activer la configuration 
-RUN a2enconf 000-default
+COPY apache.conf /etc/apache2/conf-available/servername.conf
+RUN a2enconf servername
 
 # Exécuter les migrations de la base de données
 RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
