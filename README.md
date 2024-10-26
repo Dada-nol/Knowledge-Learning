@@ -39,5 +39,6 @@ Installez les extensions PHP suivantes :
    cd Knowledge-Learning
 
  2. **Installer les dépendances**
+    ``bash
     composer install
 
