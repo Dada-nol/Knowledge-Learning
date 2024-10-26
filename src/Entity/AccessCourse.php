@@ -2,9 +2,8 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Blameable;
 use App\Entity\Traits\Timestampable;
-use App\Repository\UserCourseRepository;
+use App\Repository\AccessCourseRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
@@ -15,7 +14,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
  *
  * @package App\Entity
  */
-#[ORM\Entity(repositoryClass: UserCourseRepository::class)]
+#[ORM\Entity(repositoryClass: AccessCourseRepository::class)]
 #[HasLifecycleCallbacks]
 class AccessCourse
 {
@@ -38,7 +37,7 @@ class AccessCourse
     /**
      * @var Course|null The course associated with this access course.
      */
-    #[ORM\ManyToOne(inversedBy: 'userCourse')]
+    #[ORM\ManyToOne(inversedBy: 'accessCourse')]
     private ?Course $course = null;
 
     /**

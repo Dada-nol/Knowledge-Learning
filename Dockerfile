@@ -29,28 +29,16 @@ ENV APP_ENV=dev
 COPY . /var/www/
 WORKDIR /var/www/
 
-RUN composer install --no-dev --optimize-autoloader --classmap-authoritative
+RUN composer install --optimize-autoloader --classmap-authoritative
 
 # Permissions
-RUN chown -R www-data:www-data /var/www && \
-    chmod -R 755 /var/www
-
-# Créer les répertoires de cache et de logs et définir les permissions
-RUN mkdir -p var/cache var/log var/sessions && \
-    chown -R www-data:www-data var/cache var/log var/sessions && \
-    chmod -R 775 var/cache var/log var/sessions
-
-# Nettoyer le cache de Symfony
-RUN php bin/console cache:clear
+RUN chown -R www-data:www-data /var/www 
 
 # Instaurer un ServerName
-# RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 COPY apache.conf /etc/apache2/conf-available/servername.conf
 RUN a2enconf servername
-
-# Exécuter les migrations de la base de données
-RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
 
 ENTRYPOINT ["apache2-foreground"]
 

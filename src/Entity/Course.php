@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\Blameable;
 use App\Entity\Traits\Timestampable;
 use App\Repository\CourseRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -177,15 +176,15 @@ class Course
     /**
      * Removes an access record from this course.
      *
-     * @param AccessCourse $userCourse The access record to remove.
+     * @param AccessCourse $accessCourse The access record to remove.
      * @return static Returns the current instance for method chaining.
      */
-    public function removeAccessCourse(AccessCourse $userCourse): static
+    public function removeAccessCourse(AccessCourse $accessCourse): static
     {
-        if ($this->accessCourse->removeElement($userCourse)) {
+        if ($this->accessCourse->removeElement($accessCourse)) {
             // set the owning side to null (unless already changed)
-            if ($userCourse->getCourse() === $this) {
-                $userCourse->setCourse(null);
+            if ($accessCourse->getCourse() === $this) {
+                $accessCourse->setCourse(null);
             }
         }
 
